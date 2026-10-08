@@ -1,0 +1,45 @@
+---
+import '@fontsource/italiana/400.css';
+import '@fontsource-variable/jost';
+import '../styles/global.css';
+import Seo from '../components/seo/Seo.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#c5c8ad" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <Seo title={title} description={description} noindex={noindex} />
+    <!-- Anti-parpadeo: marca JS activo antes del primer pintado (docs/experience/motion.md) -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <!-- Elementos fijos: deben vivir fuera del contenido que transforma ScrollSmoother -->
+    <slot name="fixed" />
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <slot />
+      </div>
+    </div>
+
+    <script>
+      import { initSmooth } from '../scripts/motion/smooth';
+      import { initReveals } from '../scripts/motion/reveal';
+
+      initSmooth();
+      initReveals();
+    </script>
+  </body>
+</html>

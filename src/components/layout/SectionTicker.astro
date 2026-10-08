@@ -1,0 +1,101 @@
+---
+// Indicador flotante de sección actual + progreso de lectura. Aparece al salir del hero.
+import { nav } from '../../data/site';
+
+const total = String(nav.length).padStart(2, '0');
+---
+
+<aside class="ticker" aria-hidden="true" data-ticker>
+  <span class="ticker__count">
+    <span class="ticker__window"><span class="ticker__current" data-ticker-n>01</span></span>
+    <span class="ticker__total">/ {total}</span>
+  </span>
+  <span class="ticker__bar"><span class="ticker__fill" data-ticker-fill></span></span>
+  <span class="ticker__window"><span class="ticker__label" data-ticker-label>{nav[0].label}</span></span>
+</aside>
+
+<style>
+  .ticker {
+    position: fixed;
+    left: var(--gutter);
+    bottom: 1.4rem;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ticker__count {
+    display: inline-flex;
+    gap: 0.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ticker__window {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  .ticker__current,
+  .ticker__label {
+    display: inline-block;
+  }
+
+  .ticker__total {
+    color: var(--tinta-soft);
+  }
+
+  .ticker__bar {
+    position: relative;
+    width: 4.5rem;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .ticker__fill {
+    position: absolute;
+    inset: 0;
+    background: var(--tinta);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  :global(.menu-open) .ticker {
+    visibility: hidden;
+  }
+
+  /* En móvil el ticker flota sobre contenido: píldora translúcida para que siempre se lea */
+  @media (max-width: 640px) {
+    .ticker {
+      left: 50%;
+      bottom: 0.9rem;
+      translate: -50% 0;
+      gap: 0.7rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--salvia) 86%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px -14px rgb(35 38 28 / 0.45);
+      font-size: 0.58rem;
+      white-space: nowrap;
+    }
+
+    .ticker__bar {
+      width: 2.4rem;
+    }
+  }
+</style>
+
+<script>
+  import { initTicker } from '../../scripts/ticker';
+
+  const ticker = document.querySelector<HTMLElement>('[data-ticker]');
+  if (ticker) initTicker(ticker);
+</script>

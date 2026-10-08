@@ -1,0 +1,39 @@
+---
+// 02 — Diseños. Optimiza las imágenes en el servidor y las pasa a la isla React (recorrido horizontal).
+import { getImage } from 'astro:assets';
+import DesignGallery from '../islands/gallery/DesignGallery';
+import type { GalleryItem } from '../islands/gallery/types';
+import { categories, work } from '../../data/work';
+
+const labelOf = (id: string) => categories.find((c) => c.id === id)?.label ?? id;
+
+const items: GalleryItem[] = await Promise.all(
+  work.map(async (piece) => {
+    const thumb = await getImage({ src: piece.image, widths: [400, 700, 1000], format: 'webp' });
+    const full = await getImage({ src: piece.image, width: 1600, format: 'webp' });
+    return {
+      id: piece.id,
+      title: piece.title,
+      category: piece.category,
+      categoryLabel: labelOf(piece.category),
+      alt: piece.alt,
+      focus: piece.focus,
+      src: thumb.src,
+      srcSet: thumb.srcSet.attribute,
+      full: full.src,
+      width: piece.image.width,
+      height: piece.image.height,
+    };
+  }),
+);
+---
+
+<section id="disenos" aria-labelledby="disenos-title" data-section="02" data-section-label="Diseños">
+  <DesignGallery
+    client:load
+    items={items}
+    filters={categories}
+    label="Diseños"
+    title="Piezas hechas una sola vez."
+  />
+</section>

@@ -1,0 +1,169 @@
+---
+// Menú a pantalla completa: índice numerado (eco del hero) + preview de foto al pasar el cursor.
+import { Image } from 'astro:assets';
+import { nav, site } from '../../data/site';
+import { byId } from '../../data/work';
+import InstagramIcon from '../ui/icons/InstagramIcon.astro';
+import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+
+const items = nav.map((item) => ({ ...item, piece: byId(item.preview) }));
+---
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" hidden data-menu>
+  <div class="menu__inner">
+    <nav class="menu__nav" aria-label="Secciones">
+      <p class="eyebrow menu__label" data-menu-fade>Índice</p>
+      <ul>
+        {items.map((item, i) => (
+          <li class="menu__item">
+            <a href={item.href} data-menu-link data-index={i}>
+              <span class="menu__n">{item.n}</span>
+              <span class="menu__text display" data-menu-line>{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="menu__previews" aria-hidden="true">
+      {items.map((item, i) => (
+        <figure class="menu__preview" data-menu-preview={i}>
+          <Image src={item.piece.image} alt="" widths={[400, 700]} sizes="(max-width: 860px) 0px, 24vw" loading="lazy" />
+        </figure>
+      ))}
+    </div>
+
+    <footer class="menu__footer" data-menu-fade>
+      <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer"><WhatsAppIcon /> WhatsApp {site.whatsappDisplay}</a>
+      <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer"><InstagramIcon /> {site.instagramHandle}</a>
+      <span>{site.area}, {site.city}</span>
+    </footer>
+  </div>
+</div>
+
+<style>
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: var(--tinta);
+    color: var(--lino);
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .menu[hidden] {
+    display: none;
+  }
+
+  .menu__inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-rows: 1fr auto;
+    height: 100%;
+    padding: 7rem var(--gutter) 2rem;
+    gap: 2rem;
+  }
+
+  .menu__label {
+    color: var(--salvia-deep);
+    margin-bottom: 1.5rem;
+  }
+
+  .menu__item {
+    overflow: hidden;
+    border-top: 1px solid color-mix(in srgb, var(--lino) 10%, transparent);
+  }
+
+  .menu__item:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--lino) 10%, transparent);
+  }
+
+  .menu__item a {
+    display: flex;
+    align-items: baseline;
+    gap: 1.6rem;
+    padding: 0.9rem 0;
+    transition: color 0.4s var(--ease-out);
+  }
+
+  .menu__n {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--terracota);
+  }
+
+  .menu__text {
+    display: inline-block;
+    font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+    line-height: 1;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .menu__item a:hover,
+  .menu__item a:focus-visible {
+    color: var(--salvia);
+  }
+
+  .menu__item a:hover .menu__text,
+  .menu__item a:focus-visible .menu__text {
+    transform: translateX(1.2rem);
+  }
+
+  .menu__previews {
+    position: relative;
+    align-self: center;
+    justify-self: center;
+    width: min(24vw, 360px);
+    aspect-ratio: 3 / 4;
+  }
+
+  .menu__preview {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .menu__preview :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .menu__footer {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 2.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--salvia);
+  }
+
+  .menu__footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 860px) {
+    .menu__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .menu__previews {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { initMenu } from '../../scripts/menu';
+
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  if (menu && toggle) initMenu(menu, toggle);
+</script>

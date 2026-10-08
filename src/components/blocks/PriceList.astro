@@ -1,0 +1,116 @@
+---
+// Tarjeta "Confección y ajustes": réplica del flyer de precios.
+import { expressSurcharge, priceList, priceNote } from '../../data/services';
+
+const mxn = (value: number) => `$${value.toLocaleString('es-MX')}`;
+---
+
+<aside class="prices" aria-labelledby="prices-title" data-reveal>
+  <span class="prices__pin" aria-hidden="true"></span>
+  <p class="prices__brand display">Anter</p>
+  <h3 id="prices-title" class="prices__title eyebrow">Confección y ajustes</h3>
+
+  {priceList.map((group) => (
+    <div class="prices__group">
+      <h4 class="prices__group-title eyebrow">{group.group}</h4>
+      <dl>
+        {group.items.map((item) => (
+          <div class="prices__row">
+            <dt>{item.label}</dt>
+            <dd>{mxn(item.price)}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  ))}
+
+  <div class="prices__row prices__row--express">
+    <span class="eyebrow">Arreglo express</span>
+    <span>+{mxn(expressSurcharge)}</span>
+  </div>
+
+  <p class="prices__note">* {priceNote}</p>
+</aside>
+
+<style>
+  /* Se presenta como el flyer físico: papel lino con sombra, apoyado sobre el fondo salvia */
+  .prices {
+    position: relative;
+    padding: clamp(1.8rem, 3.4vw, 2.8rem);
+    background: var(--lino);
+    box-shadow:
+      0 1px 2px rgb(35 38 28 / 0.08),
+      0 40px 70px -40px rgb(35 38 28 / 0.45);
+    font-size: 0.9rem;
+  }
+
+  .prices__pin {
+    position: absolute;
+    top: 0.9rem;
+    left: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--terracota);
+    translate: -50% 0;
+  }
+
+  .prices__brand {
+    font-size: 2rem;
+    letter-spacing: 0.18em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .prices__title {
+    margin-top: 0.4rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--tinta-soft);
+  }
+
+  .prices__group {
+    margin-top: 1.6rem;
+  }
+
+  .prices__group-title {
+    font-size: 0.66rem;
+    margin-bottom: 0.6rem;
+    color: var(--terracota);
+  }
+
+  .prices dl {
+    margin: 0;
+  }
+
+  .prices__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.42rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .prices__row dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prices__row--express {
+    margin-top: 1.4rem;
+    border-bottom: 0;
+    border-top: 1px solid var(--tinta);
+    padding-top: 1rem;
+  }
+
+  .prices__row--express .eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .prices__note {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--tinta-soft);
+  }
+</style>

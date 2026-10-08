@@ -1,0 +1,204 @@
+---
+// Navegación flotante: marca apilada a la izquierda, "Agenda" + botón Menú a la derecha. Sin barra.
+import InstagramIcon from '../ui/icons/InstagramIcon.astro';
+import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+import { site } from '../../data/site';
+---
+
+<header class="header" data-header>
+  <a href="#top" class="header__brand" aria-label={`${site.name}, inicio`}>
+    <span class="header__mark display">Anter</span>
+    <span class="header__sub">House</span>
+  </a>
+
+  <div class="header__actions">
+    <div class="header__social">
+      <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label={`Instagram ${site.instagramHandle}`}>
+        <InstagramIcon />
+      </a>
+      <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${site.whatsappDisplay}`}>
+        <WhatsAppIcon />
+      </a>
+    </div>
+    <a href="#cita" class="header__link">Agenda tu cita</a>
+    <button type="button" class="header__menu" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="header__menu-label" data-menu-label>Menú</span>
+      <span class="header__menu-icon" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 60;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.4rem var(--gutter);
+    pointer-events: none;
+    transition: color 0.5s var(--ease-out);
+  }
+
+  .header > * {
+    position: relative;
+    pointer-events: auto;
+  }
+
+  /* Velo en salvia: el contenido se desvanece bajo la marca en vez de encimarse */
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 -1.5rem;
+    background: linear-gradient(to bottom, var(--salvia) 35%, color-mix(in srgb, var(--salvia) 0%, transparent));
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-out);
+  }
+
+  :global(.menu-open) .header::before {
+    opacity: 0;
+  }
+
+  /* Con el menú abierto el header pasa a tono claro */
+  :global(.menu-open) .header {
+    color: var(--lino);
+  }
+
+  .header__brand {
+    display: grid;
+    justify-items: center;
+    line-height: 1;
+  }
+
+  .header__mark {
+    font-size: 1.45rem;
+    letter-spacing: 0.2em;
+    padding-left: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .header__sub {
+    margin-top: 0.35rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.62em;
+    padding-left: 0.62em;
+    text-transform: uppercase;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  .header__social {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .header__social a {
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    transition:
+      background-color 0.4s var(--ease-out),
+      color 0.4s var(--ease-out);
+  }
+
+  .header__social a:hover {
+    background: var(--tinta);
+    color: var(--salvia);
+  }
+
+  :global(.menu-open) .header__social a:hover {
+    background: var(--salvia);
+    color: var(--tinta);
+  }
+
+  .header__link {
+    position: relative;
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+  }
+
+  .header__link::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -5px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .header__link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .header__menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.7rem 0.8rem 0.7rem 1.2rem;
+    border-radius: 999px;
+    background: var(--tinta);
+    color: var(--salvia);
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    transition:
+      background-color 0.5s var(--ease-out),
+      color 0.5s var(--ease-out);
+  }
+
+  :global(.menu-open) .header__menu {
+    background: var(--salvia);
+    color: var(--tinta);
+  }
+
+  .header__menu-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, currentColor 16%, transparent);
+  }
+
+  .header__menu-icon i {
+    position: absolute;
+    width: 0.7rem;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .header__menu-icon i:first-child {
+    transform: translateY(-2.5px);
+  }
+
+  .header__menu-icon i:last-child {
+    transform: translateY(2.5px);
+  }
+
+  .header__menu[aria-expanded='true'] .header__menu-icon i:first-child {
+    transform: rotate(45deg);
+  }
+
+  .header__menu[aria-expanded='true'] .header__menu-icon i:last-child {
+    transform: rotate(-45deg);
+  }
+
+  @media (max-width: 640px) {
+    .header__link {
+      display: none;
+    }
+  }
+</style>

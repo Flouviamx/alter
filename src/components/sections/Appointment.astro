@@ -1,0 +1,110 @@
+---
+// 04 — Agenda tu cita. Cierre compacto sin fotos: encabezado y directorio a la izquierda,
+// formulario tipo Typeform a la derecha (isla islands/contact) que arma el mensaje de WhatsApp.
+import SectionHeading from '../ui/SectionHeading.astro';
+import InstagramIcon from '../ui/icons/InstagramIcon.astro';
+import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+import ContactForm from '../islands/contact/ContactForm';
+import { site } from '../../data/site';
+
+const directory = [
+  { label: 'Taller', value: `${site.area}, ${site.city}` },
+  { label: 'Citas', value: 'Solo con agenda previa' },
+];
+---
+
+<section class="appointment" id="cita" aria-labelledby="cita-title" data-section="04" data-section-label="Agenda tu cita">
+  <div class="appointment__inner wrap">
+    <div class="appointment__head">
+      <SectionHeading label="Agenda tu cita" title="Hablemos de tu próxima pieza." id="cita-title" />
+      <p class="appointment__body" data-reveal>
+        Responde unas preguntas y te armamos el mensaje para WhatsApp. Toma menos de un minuto.
+      </p>
+
+      <dl class="appointment__directory" data-reveal>
+        {directory.map((item) => (
+          <div>
+            <dt class="display">{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="appointment__direct" data-reveal>
+        <span>O escríbenos directo:</span>
+        <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={15} /> {site.whatsappDisplay}</a>
+        <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer"><InstagramIcon size={15} /> {site.instagramHandle}</a>
+      </p>
+    </div>
+
+    <div class="appointment__form" data-reveal>
+      <ContactForm client:visible />
+    </div>
+  </div>
+</section>
+
+<style>
+  .appointment {
+    padding-block: calc(var(--section-y) * 0.5) calc(var(--section-y) * 0.8);
+  }
+
+  .appointment__inner {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: start;
+  }
+
+  .appointment__body {
+    margin-top: 1.2rem;
+    max-width: 36ch;
+    font-size: 0.92rem;
+    color: var(--tinta-soft);
+  }
+
+  /* Directorio: etiqueta en Italiana terracota + dato, como los créditos de una revista */
+  .appointment__directory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
+    margin: 2rem 0 0;
+  }
+
+  .appointment__directory dt {
+    font-size: 1rem;
+    color: var(--terracota);
+  }
+
+  .appointment__directory dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.82rem;
+  }
+
+  .appointment__direct {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.4rem;
+    margin-top: 2rem;
+    font-size: 0.78rem;
+    color: var(--tinta-soft);
+  }
+
+  .appointment__direct a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--tinta);
+    transition: color 0.4s var(--ease-out);
+  }
+
+  .appointment__direct a:hover {
+    color: var(--terracota);
+  }
+
+  @media (max-width: 860px) {
+    .appointment__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

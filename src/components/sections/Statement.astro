@@ -1,0 +1,173 @@
+---
+// Frase sobre fotografía (eco del "MEET THE…" del moodboard). Las líneas se cruzan con el scroll.
+// Las esquinas libres se componen como revista: foto suelta arriba a la derecha y nota del taller
+// abajo a la izquierda (solo texto). Los "Fig." continúan la numeración de Esencia (1–3).
+// Copy de la nota en borrador: validar con la clienta.
+import { Image } from 'astro:assets';
+import FigCaption from '../ui/FigCaption.astro';
+import { byId } from '../../data/work';
+
+const photo = byId('taller-champagne');
+// Pieza que no aparece en ninguna otra sección fuera de la galería (no repetir fotos).
+const aside = byId('noche-fucsia');
+---
+
+<section class="statement" aria-label="Hecho a tu medida" data-statement>
+  <div class="statement__stage">
+    <div class="statement__main">
+      <figure class="statement__photo" data-clip>
+        <Image src={photo.image} alt={photo.alt} widths={[500, 800, 1100]} sizes="(max-width: 860px) 56vw, 22vw" />
+      </figure>
+      <FigCaption n={4} title={`${photo.title}, en el taller`} vertical />
+    </div>
+
+    <div class="statement__aside" data-parallax="-0.3">
+      <figure class="statement__aside-photo" data-clip>
+        <Image
+          src={aside.image}
+          alt={aside.alt}
+          widths={[300, 600]}
+          sizes="(max-width: 860px) 0px, 12vw"
+          style={aside.focus ? `object-position: ${aside.focus}` : undefined}
+        />
+      </figure>
+      <FigCaption n={5} title={aside.title} />
+    </div>
+
+    <aside class="statement__note" data-parallax="-0.12">
+      <p class="statement__note-label display" data-reveal>Del taller</p>
+      <p class="statement__note-body" data-reveal>
+        Cada vestido nace en el maniquí: se drapea, se prende con alfileres y se ajusta prueba a prueba hasta que la
+        tela cae sola.
+      </p>
+    </aside>
+
+    <p class="statement__line statement__line--a display" data-statement-line="-1" aria-hidden="true">Hecho a</p>
+    <p class="statement__line statement__line--b display" data-statement-line="1" aria-hidden="true">tu medida</p>
+  </div>
+</section>
+
+<style>
+  .statement {
+    padding-block: calc(var(--section-y) * 0.6);
+    overflow: hidden;
+  }
+
+  .statement__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding-block: 2rem;
+  }
+
+  .statement__main {
+    position: relative;
+  }
+
+  .statement__photo,
+  .statement__aside-photo {
+    margin: 0;
+    overflow: hidden;
+    background: var(--salvia-soft);
+  }
+
+  .statement__photo :global(img),
+  .statement__aside-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .statement__photo {
+    width: min(22vw, 340px);
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Arriba a la derecha: foto suelta */
+  .statement__aside {
+    position: absolute;
+    right: 8vw;
+    top: 0;
+    width: 11vw;
+  }
+
+  .statement__aside-photo {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Abajo a la izquierda: nota del taller como columna de revista */
+  .statement__note {
+    position: absolute;
+    left: 7vw;
+    bottom: 4%;
+    width: min(17rem, 22vw);
+  }
+
+  .statement__note-label {
+    font-size: 1.15rem;
+    color: var(--terracota);
+  }
+
+  .statement__note-body {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--tinta-soft);
+  }
+
+  .statement__line {
+    position: absolute;
+    z-index: 2;
+    white-space: nowrap;
+    font-size: clamp(3.4rem, 10vw, 10rem);
+    line-height: 0.85;
+    color: var(--terracota);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .statement__line--a {
+    top: 14%;
+    left: 8%;
+  }
+
+  .statement__line--b {
+    bottom: 14%;
+    right: 6%;
+  }
+
+  @media (max-width: 860px) {
+    .statement__photo {
+      width: 56vw;
+    }
+
+    .statement__aside,
+    .statement__main :global(.fig) {
+      display: none;
+    }
+
+    .statement__note {
+      position: static;
+      grid-row: 2;
+      justify-self: start;
+      width: auto;
+      max-width: 22rem;
+      margin: 3rem var(--gutter) 0;
+    }
+
+    .statement__line--a {
+      top: 4%;
+    }
+
+    .statement__line--b {
+      bottom: auto;
+      top: 38%;
+    }
+  }
+</style>
+
+<script>
+  import { initStatement } from '../../scripts/motion/statement';
+
+  document.querySelectorAll<HTMLElement>('[data-statement]').forEach(initStatement);
+</script>

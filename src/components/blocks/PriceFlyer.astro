@@ -1,0 +1,82 @@
+---
+// Flyer de precios en WebGL (scripts/webgl/priceFlyer.ts) con la lista HTML como respaldo.
+// La lista sigue en el DOM para lectores de pantalla y buscadores; si hay WebGL se oculta visualmente.
+import PriceList from './PriceList.astro';
+---
+
+<div class="flyer" data-flyer>
+  <div class="flyer__stage" aria-hidden="true" data-flyer-stage></div>
+  <div class="flyer__fallback">
+    <PriceList />
+  </div>
+</div>
+
+<style>
+  .flyer {
+    position: relative;
+  }
+
+  .flyer__stage {
+    position: relative;
+    display: none;
+    width: 100%;
+    aspect-ratio: 5 / 6;
+    touch-action: pan-y;
+  }
+
+  /* El canvas sangra fuera de la caja (BLEED_X / BLEED_Y en priceFlyer.ts) para que la hoja
+     nunca se recorte al inclinarse. No captura eventos: los escucha la caja. */
+  .flyer__stage :global(canvas) {
+    position: absolute;
+    inset: -15% -25%;
+    width: 150%;
+    height: 130%;
+    pointer-events: none;
+  }
+
+  .flyer__fallback {
+    rotate: 2.5deg;
+  }
+
+  /* Con WebGL activo: se ve el papel 3D y la lista queda solo para tecnologías asistivas */
+  .flyer.is-webgl .flyer__stage {
+    display: block;
+  }
+
+  .flyer.is-webgl .flyer__fallback {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  // Three.js se descarga solo cuando el flyer se acerca al viewport.
+  document.querySelectorAll<HTMLElement>('[data-flyer]').forEach((flyer) => {
+    const stage = flyer.querySelector<HTMLElement>('[data-flyer-stage]');
+    if (!stage) return;
+
+    const observer = new IntersectionObserver(
+      async ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+
+        const { initPriceFlyer, supportsWebGL } = await import('../../scripts/webgl/priceFlyer');
+        if (!supportsWebGL()) return;
+
+        flyer.classList.add('is-webgl');
+        try {
+          await initPriceFlyer(stage);
+        } catch (error) {
+          flyer.classList.remove('is-webgl');
+          console.error('[flyer] WebGL no disponible', error);
+        }
+      },
+      { rootMargin: '600px 0px' },
+    );
+    observer.observe(flyer);
+  });
+</script>

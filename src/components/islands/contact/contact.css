@@ -1,0 +1,290 @@
+/* Formulario de contacto tipo Typeform (isla React). Tokens en src/styles/global.css */
+
+.cf {
+  position: relative;
+  min-height: 25rem;
+  padding-bottom: 3.5rem;
+}
+
+/* Progreso */
+.cf__progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cf__progress-track {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.cf__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--tinta);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.cf__progress-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta-soft);
+}
+
+/* Paso */
+.cf__stage {
+  padding-top: 2.2rem;
+  outline: none;
+}
+
+.cf__number {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--terracota);
+}
+
+.cf__question {
+  margin-top: 0.4rem;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  line-height: 1.1;
+  max-width: 22ch;
+}
+
+.cf__help {
+  margin-top: 0.6rem;
+  max-width: 44ch;
+  font-size: 0.85rem;
+  color: var(--tinta-soft);
+}
+
+/* Texto */
+.cf__input {
+  display: block;
+  width: 100%;
+  margin-top: 1.6rem;
+  padding: 0.5rem 0;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--tinta) 35%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--tinta);
+  font: 300 clamp(1.15rem, 1.6vw, 1.4rem) / 1.4 var(--font-sans);
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.cf__input::placeholder {
+  color: color-mix(in srgb, var(--tinta-soft) 55%, transparent);
+}
+
+.cf__input:focus {
+  border-bottom-color: var(--tinta);
+}
+
+.cf__input[aria-invalid='true'] {
+  border-bottom-color: var(--terracota);
+}
+
+.cf__error {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--terracota);
+}
+
+/* Acciones */
+.cf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+  margin-top: 1.6rem;
+}
+
+.cf__ok,
+.cf__send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.3rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.cf__ok {
+  background: var(--tinta);
+  color: var(--salvia);
+}
+
+.cf__ok:hover {
+  background: var(--terracota);
+}
+
+.cf__send {
+  padding: 0.95rem 1.6rem;
+  background: var(--terracota);
+  color: var(--lino);
+}
+
+.cf__send:hover {
+  background: var(--tinta);
+}
+
+.cf__hint {
+  font-size: 0.7rem;
+  color: var(--tinta-soft);
+}
+
+.cf kbd {
+  padding: 0.05em 0.4em;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font: inherit;
+  font-size: 0.95em;
+}
+
+.cf__link {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Opciones */
+.cf__options {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 26rem;
+  margin-top: 1.5rem;
+}
+
+.cf__option {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--lino) 22%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 0.95rem;
+  text-align: left;
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+
+.cf__option:hover {
+  box-shadow: inset 0 0 0 1px var(--tinta);
+}
+
+.cf__option[aria-checked='true'] {
+  background: var(--tinta);
+  color: var(--salvia);
+  box-shadow: none;
+}
+
+.cf .cf__key {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  font-size: 0.66rem;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.cf__check {
+  margin-left: auto;
+}
+
+/* Resumen */
+.cf__summary {
+  margin: 1.4rem 0 0;
+  max-width: 34rem;
+}
+
+.cf__summary-row {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr auto;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.cf__summary-row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.cf__summary dt {
+  font-size: 1rem;
+  color: var(--terracota);
+}
+
+.cf__summary dd {
+  margin: 0;
+  font-size: 0.9rem;
+  white-space: pre-line;
+}
+
+.cf__edit {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tinta-soft);
+}
+
+.cf__edit:hover {
+  color: var(--tinta);
+}
+
+/* Flechas, como en Typeform */
+.cf__nav {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 2px;
+}
+
+.cf__nav button {
+  width: 2.3rem;
+  height: 2.3rem;
+  background: var(--tinta);
+  color: var(--salvia);
+  font-size: 0.9rem;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.cf__nav button:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.cf__nav button:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.cf__nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .cf__summary-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .cf__summary dd {
+    grid-column: 1;
+  }
+}

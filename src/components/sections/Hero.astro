@@ -1,0 +1,281 @@
+---
+import { Image } from 'astro:assets';
+import ArrowCircle from '../ui/ArrowCircle.astro';
+import { byId } from '../../data/work';
+import { nav, site } from '../../data/site';
+
+const main = byId('novia-terraza');
+const small = byId('noche-negro');
+const workshop = byId('taller-terracota');
+const detail = byId('novia-alcatraces');
+
+const index = nav;
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <p class="hero__vertical display" data-intro>Hecho a tu medida,<br />puntada a puntada.</p>
+
+  <figure class="hero__photo hero__photo--main" data-photo data-drift="-0.12">
+    <Image src={main.image} alt={main.alt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 56vw, 22vw" loading="eager" fetchpriority="high" />
+  </figure>
+  <figure class="hero__photo hero__photo--small" data-photo data-drift="-0.3">
+    <Image src={small.image} alt={small.alt} widths={[320, 640]} sizes="(max-width: 860px) 32vw, 11vw" loading="eager" />
+  </figure>
+  <figure class="hero__photo hero__photo--workshop" data-photo data-drift="-0.2">
+    <Image src={workshop.image} alt={workshop.alt} widths={[320, 640]} sizes="(max-width: 860px) 34vw, 12vw" loading="eager" />
+  </figure>
+  <figure class="hero__photo hero__photo--detail" data-photo data-drift="-0.06">
+    <Image src={detail.image} alt={detail.alt} widths={[480, 800]} sizes="(max-width: 860px) 0px, 17vw" />
+  </figure>
+
+  <nav class="hero__index" aria-label="Índice" data-intro>
+    <p class="eyebrow hero__index-label">Índice</p>
+    <ul>
+      {index.map((item) => (
+        <li>
+          <a href={item.href}>
+            <span class="hero__index-n">{item.n}</span>
+            <span class="hero__index-label-text">{item.label}</span>
+            <span class="hero__arrow"><ArrowCircle /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="hero__index-note">Moda a la medida en {site.city} Novias, noche y confección.</p>
+  </nav>
+
+  <div class="hero__wordmark" data-wordmark>
+    <h1 id="hero-title" class="display">
+      <span class="sr-only">Anter House: vestidos a la medida y de novia en Monterrey</span>
+      <span class="hero__letters" aria-hidden="true">
+        {'ANTER'.split('').map((l) => <span class="hero__letter" data-letter>{l}</span>)}
+      </span>
+    </h1>
+    <p class="hero__house" aria-hidden="true" data-intro>House</p>
+    <p class="hero__tagline" aria-hidden="true" data-intro>{site.tagline}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: max(100svh, 760px);
+    background: var(--salvia);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Texto vertical, eco del moodboard editorial */
+  .hero__vertical {
+    position: absolute;
+    left: var(--gutter);
+    top: 120px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+    line-height: 1.05;
+    color: var(--terracota);
+    letter-spacing: 0.04em;
+  }
+
+  .hero__photo {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    z-index: 1;
+    background: var(--salvia-soft);
+  }
+
+  .hero__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__photo--main {
+    left: 19vw;
+    top: 15svh;
+    width: 22vw;
+    aspect-ratio: 3 / 4;
+  }
+
+  .hero__photo--small {
+    left: 46vw;
+    top: 12svh;
+    width: 10.5vw;
+    aspect-ratio: 4 / 5;
+  }
+
+  .hero__photo--workshop {
+    left: 10vw;
+    top: 54svh;
+    width: 11vw;
+    aspect-ratio: 3 / 4;
+  }
+
+  .hero__photo--detail {
+    left: 47vw;
+    top: 37svh;
+    width: 16vw;
+    aspect-ratio: 3 / 2;
+  }
+
+  .hero__index {
+    position: absolute;
+    right: var(--gutter);
+    top: 17svh;
+    width: min(30vw, 420px);
+    z-index: 2;
+  }
+
+  .hero__index-label {
+    margin-bottom: 1.2rem;
+    color: var(--tinta-soft);
+  }
+
+  .hero__index li {
+    border-top: 1px solid var(--line);
+  }
+
+  .hero__index li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero__index a {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr auto;
+    align-items: center;
+    padding: 0.95rem 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: color 0.4s var(--ease-out);
+  }
+
+  .hero__index-n {
+    font-size: 0.72rem;
+    color: var(--tinta-soft);
+  }
+
+  .hero__arrow {
+    display: inline-flex;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .hero__index a:hover {
+    color: var(--terracota);
+  }
+
+  .hero__index a:hover .hero__arrow {
+    transform: translateX(6px);
+  }
+
+  /* Alineada a la derecha y angosta: así queda fuera de la "R" del wordmark */
+  .hero__index-note {
+    margin: 1.2rem 0 0 auto;
+    max-width: 17ch;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    text-align: right;
+    color: var(--tinta-soft);
+  }
+
+  /* Wordmark: réplica tipográfica del logo */
+  .hero__wordmark {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5svh;
+    z-index: 3;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero__wordmark h1 {
+    font-size: clamp(5.5rem, 21vw, 24rem);
+    line-height: 0.8;
+    letter-spacing: 0.07em;
+    padding-left: 0.07em;
+  }
+
+  .hero__letters {
+    display: inline-flex;
+  }
+
+  .hero__letter {
+    display: inline-block;
+  }
+
+  .hero__house {
+    margin-top: clamp(0.8rem, 1.6vw, 1.6rem);
+    font-size: clamp(0.8rem, 1.3vw, 1.25rem);
+    letter-spacing: 0.75em;
+    padding-left: 0.75em;
+    text-transform: uppercase;
+  }
+
+  .hero__tagline {
+    margin-top: 0.5rem;
+    font-size: clamp(0.75rem, 1.05vw, 1rem);
+    letter-spacing: 0.62em;
+    padding-left: 0.62em;
+  }
+
+  @media (max-width: 860px) {
+    .hero {
+      min-height: 100svh;
+    }
+
+    .hero__vertical {
+      top: 13svh;
+      font-size: 1.2rem;
+    }
+
+    .hero__photo--main {
+      left: 16vw;
+      top: 12svh;
+      width: 58vw;
+    }
+
+    .hero__photo--small {
+      left: auto;
+      right: var(--gutter);
+      top: 20svh;
+      width: 27vw;
+    }
+
+    .hero__photo--workshop {
+      left: auto;
+      right: 7vw;
+      top: 47svh;
+      width: 27vw;
+    }
+
+    .hero__photo--detail,
+    .hero__index {
+      display: none;
+    }
+
+    .hero__wordmark {
+      bottom: 7svh;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .hero [data-intro],
+    :global(.js) .hero [data-letter] {
+      opacity: 0;
+    }
+
+    :global(.js) .hero [data-photo] {
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+</style>
+
+<script>
+  import { initHero } from '../../scripts/motion/hero';
+
+  const hero = document.querySelector<HTMLElement>('.hero');
+  if (hero) initHero(hero);
+</script>

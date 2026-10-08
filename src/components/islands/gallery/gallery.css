@@ -1,0 +1,278 @@
+/* Galería de diseños (isla React). Tokens en src/styles/global.css */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 3.5vh, 2.6rem);
+  min-height: 100svh;
+  padding-block: 6rem 5.5rem;
+  overflow: hidden;
+}
+
+/* Barra superior: encabezado, filtros y contador en una sola línea */
+.gallery__bar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: end;
+  gap: 1.5rem 3rem;
+}
+
+.gallery__label {
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  letter-spacing: 0.04em;
+  color: var(--terracota);
+}
+
+.gallery__title {
+  margin-top: 0.9rem;
+  font-size: var(--text-title);
+  line-height: 1.02;
+}
+
+.gallery__counter {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta-soft);
+}
+
+/* Filtros */
+.gallery__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.gallery__filter {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.3rem;
+  padding: 0.6rem 1.05rem;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+
+.gallery__filter:hover {
+  box-shadow: inset 0 0 0 1px var(--tinta);
+}
+
+.gallery__filter[aria-pressed='true'] {
+  background: var(--tinta);
+  color: var(--salvia);
+  box-shadow: none;
+}
+
+.gallery__count {
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+/* Recorrido horizontal: tarjetas a distintas alturas, como el collage del hero */
+.gallery__viewport {
+  width: 100%;
+}
+
+.gallery__track {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  width: max-content;
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+.gallery__item {
+  --h: 50svh;
+  flex-shrink: 0;
+}
+
+.gallery__item:nth-child(3n + 2) {
+  --h: 39svh;
+  margin-top: 8svh;
+}
+
+.gallery__item:nth-child(3n) {
+  --h: 45svh;
+  margin-top: 3svh;
+}
+
+.gallery__card {
+  display: block;
+  padding: 0;
+  text-align: left;
+}
+
+.gallery__media {
+  display: block;
+  height: var(--h);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--salvia-soft);
+}
+
+.gallery__media img {
+  width: 114%;
+  max-width: none;
+  height: 100%;
+  margin-left: -7%;
+  object-fit: cover;
+  transition: scale 1.1s var(--ease-out);
+}
+
+.gallery__card:hover .gallery__media img {
+  scale: 1.05;
+}
+
+.gallery__caption {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.8rem;
+  padding-top: 0.8rem;
+}
+
+.gallery__index {
+  grid-row: span 2;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--terracota);
+  padding-top: 0.2rem;
+}
+
+.gallery__item-title {
+  font-size: 0.88rem;
+}
+
+.gallery__category {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--tinta-soft);
+}
+
+/* Sin movimiento: scroll horizontal nativo */
+@media (prefers-reduced-motion: reduce) {
+  .gallery__viewport {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .gallery__bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .gallery__heading {
+    grid-column: 1 / -1;
+  }
+
+  .gallery__item {
+    --h: 46svh;
+  }
+
+  .gallery__item:nth-child(3n + 2) {
+    --h: 38svh;
+    margin-top: 5svh;
+  }
+
+  .gallery__item:nth-child(3n) {
+    --h: 42svh;
+    margin-top: 2svh;
+  }
+}
+
+/* Lightbox (portal en <body>) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 4.5rem clamp(1rem, 6vw, 6rem) 2rem;
+  background: color-mix(in srgb, var(--tinta) 97%, transparent);
+  color: var(--lino);
+}
+
+.lightbox__figure {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  max-height: 100%;
+}
+
+.lightbox__figure img {
+  width: auto;
+  max-width: min(100%, 1100px);
+  max-height: calc(100svh - 11rem);
+  object-fit: contain;
+  margin-inline: auto;
+}
+
+.lightbox__figure figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.lightbox__figure .gallery__category {
+  color: var(--salvia);
+}
+
+.lightbox__title {
+  font-size: 1.5rem;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1.4rem;
+  right: var(--gutter);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  background: color-mix(in srgb, var(--lino) 10%, transparent);
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.lightbox__nav:hover {
+  background: color-mix(in srgb, var(--lino) 22%, transparent);
+}
+
+.lightbox__nav--prev {
+  left: var(--gutter);
+}
+
+.lightbox__nav--next {
+  right: var(--gutter);
+}
+
+.lightbox :focus-visible {
+  outline-color: var(--lino);
+}
+
+@media (max-width: 640px) {
+  .lightbox__nav {
+    top: auto;
+    bottom: 1.2rem;
+    translate: none;
+  }
+}

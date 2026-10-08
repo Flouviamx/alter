@@ -1,0 +1,35 @@
+---
+// Encabezado de sección con la voz del hero: etiqueta en Italiana terracota (como el texto vertical)
+// + título display contenido. Sin números ni rayas.
+interface Props {
+  label: string;
+  title?: string;
+  id?: string;
+}
+
+const { label, title, id } = Astro.props;
+---
+
+<header class="section-heading">
+  <p class="section-heading__label display" data-reveal>{label}</p>
+  {title && <h2 id={id} class="section-heading__title display" data-reveal>{title}</h2>}
+</header>
+
+<style>
+  .section-heading {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .section-heading__label {
+    font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+    letter-spacing: 0.04em;
+    color: var(--terracota);
+  }
+
+  .section-heading__title {
+    font-size: var(--text-title);
+    max-width: 18ch;
+    line-height: 1.02;
+  }
+</style>

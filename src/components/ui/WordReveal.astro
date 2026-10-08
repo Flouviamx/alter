@@ -1,0 +1,33 @@
+---
+// Texto que se ilumina palabra por palabra con el scroll (scripts/motion/reveal.ts → data-words).
+// dropCap: la primera letra se vuelve capital editorial (terracota, ocupa ~3 líneas).
+interface Props {
+  text: string;
+  as?: 'p' | 'h2' | 'h3';
+  class?: string;
+  dropCap?: boolean;
+}
+
+const { text, as: Tag = 'p', class: className, dropCap = false } = Astro.props;
+const source = dropCap ? text.slice(1) : text;
+const words = source.split(/\s+/);
+---
+
+<Tag class={className} data-words aria-label={text}>
+  {dropCap && <span class="word word-reveal__cap" aria-hidden="true">{text[0]}</span>}
+  {words.map((word, i) => (
+    <>
+      <span class="word" aria-hidden="true">{word}</span>{i < words.length - 1 ? ' ' : ''}
+    </>
+  ))}
+</Tag>
+
+<style>
+  .word-reveal__cap {
+    float: left;
+    margin: 0.04em 0.1em 0 -0.04em;
+    font-size: 3.6em;
+    line-height: 0.82;
+    color: var(--terracota);
+  }
+</style>

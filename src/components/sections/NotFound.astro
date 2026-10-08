@@ -1,0 +1,293 @@
+---
+// 404 con la gramática del hero: collage de fotos, "404" como wordmark, texto vertical e índice.
+// Reutiliza la entrada del hero (scripts/motion/hero.ts) vía los mismos data-attributes.
+import { Image } from 'astro:assets';
+import ArrowCircle from '../ui/ArrowCircle.astro';
+import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+import { byId } from '../../data/work';
+import { site } from '../../data/site';
+
+const main = byId('taller-terracota');
+const small = byId('novia-detalle');
+const side = byId('noche-negro');
+
+const links = [
+  { n: '01', label: 'Volver al inicio', href: '/' },
+  { n: '02', label: 'Ver diseños', href: '/#disenos' },
+  { n: '03', label: 'Agenda tu cita', href: '/#cita' },
+];
+---
+
+<section class="nf" aria-labelledby="nf-title">
+  <a href="/" class="nf__brand" aria-label={`${site.name}, inicio`}>
+    <span class="nf__mark display">Anter</span>
+    <span class="nf__sub">House</span>
+  </a>
+
+  <p class="nf__vertical display" data-intro>Esta página<br />se descosió.</p>
+
+  <figure class="nf__photo nf__photo--main" data-photo data-depth="0.5">
+    <Image src={main.image} alt={main.alt} widths={[400, 700]} sizes="(max-width: 860px) 46vw, 18vw" loading="eager" />
+  </figure>
+  <figure class="nf__photo nf__photo--small" data-photo data-depth="1.1">
+    <Image src={small.image} alt={small.alt} widths={[300, 500]} sizes="(max-width: 860px) 28vw, 10vw" loading="eager" />
+  </figure>
+  <figure class="nf__photo nf__photo--side" data-photo data-depth="0.8">
+    <Image src={side.image} alt={side.alt} widths={[300, 500]} sizes="(max-width: 860px) 0px, 11vw" loading="eager" />
+  </figure>
+
+  <nav class="nf__index" aria-label="Seguir navegando" data-intro>
+    <p class="nf__lead">La página que buscas no existe o cambió de lugar. Mientras la volvemos a hilvanar:</p>
+    <ul>
+      {links.map((link) => (
+        <li>
+          <a href={link.href}>
+            <span class="nf__n">{link.n}</span>
+            <span>{link.label}</span>
+            <span class="nf__arrow"><ArrowCircle /></span>
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">
+          <span class="nf__n">04</span>
+          <span>Escríbenos</span>
+          <span class="nf__arrow"><WhatsAppIcon size={20} /></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="nf__wordmark" data-wordmark>
+    <h1 id="nf-title" class="display">
+      <span class="sr-only">Error 404: página no encontrada</span>
+      <span class="nf__letters" aria-hidden="true">
+        {'404'.split('').map((l) => <span class="nf__letter" data-letter>{l}</span>)}
+      </span>
+    </h1>
+    <p class="nf__caption" aria-hidden="true" data-intro>Página no encontrada</p>
+  </div>
+</section>
+
+<style>
+  .nf {
+    position: relative;
+    min-height: max(100svh, 680px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .nf__brand {
+    position: absolute;
+    top: 1.4rem;
+    left: var(--gutter);
+    z-index: 5;
+    display: grid;
+    justify-items: center;
+    line-height: 1;
+  }
+
+  .nf__mark {
+    font-size: 1.45rem;
+    letter-spacing: 0.2em;
+    padding-left: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .nf__sub {
+    margin-top: 0.35rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.62em;
+    padding-left: 0.62em;
+    text-transform: uppercase;
+  }
+
+  .nf__vertical {
+    position: absolute;
+    left: var(--gutter);
+    top: 22svh;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+    line-height: 1.05;
+    color: var(--terracota);
+  }
+
+  .nf__photo {
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    overflow: hidden;
+    background: var(--salvia-soft);
+  }
+
+  .nf__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .nf__photo--main {
+    left: 22vw;
+    top: 13svh;
+    width: 18vw;
+    aspect-ratio: 3 / 4;
+  }
+
+  .nf__photo--small {
+    left: 12vw;
+    top: 46svh;
+    width: 10vw;
+    aspect-ratio: 3 / 4;
+  }
+
+  .nf__photo--side {
+    left: 45vw;
+    top: 18svh;
+    width: 11vw;
+    aspect-ratio: 4 / 5;
+  }
+
+  .nf__index {
+    position: absolute;
+    right: var(--gutter);
+    top: 16svh;
+    z-index: 4;
+    width: min(30vw, 400px);
+  }
+
+  .nf__lead {
+    margin-bottom: 1.2rem;
+    max-width: 34ch;
+    font-size: 0.9rem;
+    color: var(--tinta-soft);
+  }
+
+  .nf__index li {
+    border-top: 1px solid var(--line);
+  }
+
+  .nf__index li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nf__index a {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr auto;
+    align-items: center;
+    padding: 0.95rem 0;
+    font-size: 0.92rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: color 0.4s var(--ease-out);
+  }
+
+  .nf__n {
+    font-size: 0.72rem;
+    color: var(--tinta-soft);
+  }
+
+  .nf__arrow {
+    display: inline-flex;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .nf__index a:hover {
+    color: var(--terracota);
+  }
+
+  .nf__index a:hover .nf__arrow {
+    transform: translateX(6px);
+  }
+
+  .nf__wordmark {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4svh;
+    z-index: 3;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .nf__wordmark h1 {
+    font-size: clamp(9rem, 34vw, 36rem);
+    line-height: 0.78;
+    letter-spacing: 0.04em;
+  }
+
+  .nf__letters {
+    display: inline-flex;
+  }
+
+  .nf__letter {
+    display: inline-block;
+  }
+
+  .nf__caption {
+    margin-top: 1rem;
+    font-size: clamp(0.75rem, 1.05vw, 1rem);
+    letter-spacing: 0.62em;
+    padding-left: 0.62em;
+    text-transform: lowercase;
+  }
+
+  @media (max-width: 860px) {
+    .nf__vertical {
+      top: 14svh;
+      font-size: 1.2rem;
+    }
+
+    .nf__photo--main {
+      left: 20vw;
+      top: 12svh;
+      width: 46vw;
+    }
+
+    .nf__photo--small {
+      left: auto;
+      right: var(--gutter);
+      top: 20svh;
+      width: 26vw;
+    }
+
+    .nf__photo--side {
+      display: none;
+    }
+
+    .nf__index {
+      position: relative;
+      inset: auto;
+      width: auto;
+      margin: 62svh var(--gutter) 0;
+      padding-bottom: 2rem;
+    }
+
+    .nf__wordmark {
+      top: 36svh;
+      bottom: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .nf [data-intro],
+    :global(.js) .nf [data-letter] {
+      opacity: 0;
+    }
+
+    :global(.js) .nf [data-photo] {
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+</style>
+
+<script>
+  import { initHero } from '../../scripts/motion/hero';
+  import { initPointerDepth } from '../../scripts/motion/pointerDepth';
+
+  const section = document.querySelector<HTMLElement>('.nf');
+  if (section) {
+    initHero(section);
+    initPointerDepth(section);
+  }
+</script>

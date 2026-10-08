@@ -1,0 +1,27 @@
+---
+interface Props {
+  size?: number;
+}
+
+const { size = 18 } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" class="icon">
+  <path
+    d="M3.6 20.4 4.9 16.3A8.6 8.6 0 1 1 8 19.3Z"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.3"
+    stroke-linejoin="round"
+  ></path>
+  <path
+    d="M9.3 7.9c.3-.4.5-.4.8-.4h.5c.2 0 .4 0 .5.4l.8 1.8c.1.2.1.4 0 .6l-.5.7c-.1.2-.1.4 0 .6.6 1 1.4 1.8 2.4 2.3.2.1.4.1.6-.1l.6-.7c.2-.2.4-.2.6-.1l1.7.8c.3.1.4.3.4.5 0 .5-.2 1.2-.7 1.6-.5.4-1.2.6-2 .4-1.6-.4-3.1-1.4-4.3-2.6-1-1.1-1.8-2.4-2.1-3.7-.2-.7 0-1.5.7-2.1Z"
+    fill="currentColor"
+  ></path>
+</svg>
+
+<style>
+  .icon {
+    flex-shrink: 0;
+  }
+</style>
