@@ -15,9 +15,9 @@ export interface GalleryItem {
   height: number;
 }
 
-export type Filter = Category | 'todo';
-
-export interface FilterOption {
-  id: Filter;
+/** Un grupo de la galería (Novias, Fiesta…) con sus piezas en orden. */
+export interface GalleryGroup {
+  id: Category;
   label: string;
+  items: GalleryItem[];
 }

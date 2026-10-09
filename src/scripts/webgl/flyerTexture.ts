@@ -1,6 +1,7 @@
 // Dibuja el flyer "Confección y ajustes" en un canvas 2D para usarlo como textura.
 // Lee los mismos datos que la lista HTML (src/data/services.ts): una sola fuente de verdad.
 import { expressSurcharge, priceList, priceNote } from '../../data/services';
+import { WORDMARK_HEIGHT, WORDMARK_WIDTH, wordmarkGlyphs } from '../../data/wordmark';
 
 export const FLYER_WIDTH = 1000;
 export const FLYER_HEIGHT = 1300;
@@ -17,7 +18,6 @@ const COLORS = {
   line: 'rgba(35, 38, 28, 0.22)',
 };
 
-const DISPLAY = 'Italiana';
 const SANS = '"Jost Variable", Jost, sans-serif';
 
 const mxn = (value: number) => `$${value.toLocaleString('es-MX')}`;
@@ -54,9 +54,18 @@ function drawGrain(ctx: CanvasRenderingContext2D) {
   ctx.putImageData(image, 0, 0);
 }
 
+/** Wordmark ANTER con los trazos del logo original, centrado en x y apoyado en la línea base y. */
+function drawWordmark(ctx: CanvasRenderingContext2D, centerX: number, baseline: number, width: number) {
+  const scale = width / WORDMARK_WIDTH;
+  ctx.save();
+  ctx.translate(centerX - width / 2, baseline - WORDMARK_HEIGHT * scale);
+  ctx.scale(scale, scale);
+  for (const glyph of wordmarkGlyphs) ctx.fill(new Path2D(glyph.d));
+  ctx.restore();
+}
+
 export async function createFlyerCanvas() {
   await Promise.all([
-    document.fonts.load(`400 80px ${DISPLAY}`),
     document.fonts.load(`350 30px ${SANS}`),
     document.fonts.load(`400 30px ${SANS}`),
   ]);
@@ -82,8 +91,7 @@ export async function createFlyerCanvas() {
 
   // Logo
   ctx.fillStyle = COLORS.ink;
-  ctx.font = `400 96px ${DISPLAY}`;
-  drawSpaced(ctx, 'ANTER', FLYER_WIDTH / 2, 236, 22, 'center');
+  drawWordmark(ctx, FLYER_WIDTH / 2, 236, 430);
   ctx.font = `400 22px ${SANS}`;
   drawSpaced(ctx, 'HOUSE', FLYER_WIDTH / 2, 282, 14, 'center');
   ctx.font = `350 26px ${SANS}`;

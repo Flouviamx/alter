@@ -2,21 +2,23 @@
 
 ## Fotos (`src/assets/work/`)
 
+Los grupos de la galería salen de `categories` en `data/work.ts`: **Novias** y **Fiesta** (boceto de la clienta). Las piezas en maniquí (terracota, champagne) van en Fiesta. Los nombres de archivo `noche-*` y `taller-*` son históricos.
+
 Los originales están en `~/Desktop/inspo`. Se copiaron con un lado máximo de 2400 px; Astro genera los tamaños responsive.
 
-| Archivo | Categoría | Título provisional |
+| Archivo | Grupo | Título provisional |
 |---|---|---|
 | `novia-salon.jpg` | novias | Novia, escote barco y moño |
 | `novia-terraza.jpg` | novias | Civil con flores aplicadas |
 | `novia-espejo.jpg` | novias | Satín y cola lateral |
 | `novia-alcatraces.jpg` | novias | Detalle de cintura plisada |
 | `novia-detalle-flores.jpg` | novias | Flores aplicadas a mano |
-| `noche-negro-rosa.jpg` | noche | Strapless negro con rosa |
-| `noche-azul-rey.jpg` | noche | Azul rey, hombros caídos |
-| `noche-fucsia-flores.jpg` | noche | Fucsia con flores 3D (`focus` hacia la prenda) |
-| `noche-coral-lazo.jpg` | noche | Shantung coral con lazo |
-| `taller-terracota.jpg` | taller | Satín terracota, un hombro |
-| `taller-champagne.jpg` | taller | Champagne drapeado |
+| `noche-negro-rosa.jpg` | fiesta | Strapless negro con rosa |
+| `noche-azul-rey.jpg` | fiesta | Azul rey, hombros caídos |
+| `noche-fucsia-flores.jpg` | fiesta | Fucsia con flores 3D (`focus` hacia la prenda) |
+| `noche-coral-lazo.jpg` | fiesta | Shantung coral con lazo |
+| `taller-terracota.jpg` | fiesta | Satín terracota, un hombro |
+| `taller-champagne.jpg` | fiesta | Champagne drapeado |
 
 Hay que confirmar títulos y detalles (telas, ocasión) con la clienta.
 
@@ -26,7 +28,6 @@ Hay que confirmar títulos y detalles (telas, ocasión) con la clienta.
 |---|---|
 | Hero | novia-terraza, noche-negro, taller-terracota, novia-alcatraces |
 | Esencia | novia-salon, novia-detalle, novia-espejo |
-| Statement | taller-champagne, noche-fucsia |
 | Galería | todas |
 
 Los previews de Servicios (hover) y del menú son efímeros y pueden repetir. Cita y footer no llevan fotos.

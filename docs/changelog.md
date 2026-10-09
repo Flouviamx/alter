@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-10-08: v0.5 (cambios de la clienta)
+
+- **Logo:** el wordmark `ANTER` ahora es un SVG reconstruido del logo original (97–99 % de coincidencia por letra), en hero, header, footer, 404, tarjeta de precios y flyer WebGL. En el hero es más chico.
+- **Hero:**
+  - se quitó la nota bajo el índice ("Moda a la medida en Monterrey…");
+  - se agregó "est. 2024" bajo la foto del vestido blanco;
+  - se conserva la frase "puntada a puntada".
+- **Esencia:**
+  - "Proceso personalizado:" como entrada;
+  - "quede" en vez de "cae", "prenda" en vez de "vestido";
+  - sin "y se termina a mano, puntada por puntada".
+- Se eliminó la sección Statement ("Hecho a tu medida").
+- **Diseños:**
+  - por grupos según el boceto de la clienta (Novias, Fiesta), cada uno con su tira horizontal;
+  - sin filtros ni recorrido fijado;
+  - "noche" y "taller" se fusionan en Fiesta.
+- Pendiente: la clienta mandará fotos nuevas de una sesión del taller para el hero.
+
 ## 2026-10-07: v0.4 (formulario y móvil)
 
 - Agenda tu cita: sección compacta sin fotos con un formulario tipo Typeform.

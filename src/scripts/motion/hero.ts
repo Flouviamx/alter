@@ -1,4 +1,8 @@
-// Hero: entrada (fotos con clip-path, letras del wordmark con stagger) y parallax al hacer scroll.
+// Hero (y 404): entrada y parallax por atributos.
+//   data-photo   → se destapa con clip-path y su img hace zoom out
+//   data-drift   → parallax yPercent al hacer scroll (puede envolver foto + pie)
+//   data-letter  → letras del wordmark (span o path de SVG) suben con stagger
+//   data-intro   → textos que entran al final
 import { gsap, MOTION_OK } from './gsap';
 
 export function initHero(hero: HTMLElement) {
@@ -6,7 +10,8 @@ export function initHero(hero: HTMLElement) {
 
   mm.add(MOTION_OK, () => {
     const photos = hero.querySelectorAll<HTMLElement>('[data-photo]');
-    const letters = hero.querySelectorAll<HTMLElement>('[data-letter]');
+    const letters = hero.querySelectorAll<Element>('[data-letter]');
+    const drifters = hero.querySelectorAll<HTMLElement>('[data-drift]');
     const intro = hero.querySelectorAll<HTMLElement>('[data-intro]');
     const wordmark = hero.querySelector<HTMLElement>('[data-wordmark]');
 
@@ -18,7 +23,8 @@ export function initHero(hero: HTMLElement) {
         { scale: 1, duration: 1.8, stagger: 0.12, ease: 'power2.out' },
         '<',
       )
-      .fromTo(letters, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.2, stagger: 0.07 }, '-=1.1')
+      // yPercent funciona igual en spans y en paths de SVG
+      .fromTo(letters, { opacity: 0, yPercent: 40 }, { opacity: 1, yPercent: 0, duration: 1.2, stagger: 0.07 }, '-=1.1')
       .fromTo(
         intro,
         { opacity: 0, y: 16 },
@@ -28,9 +34,8 @@ export function initHero(hero: HTMLElement) {
 
     const scrub = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };
 
-    photos.forEach((photo) => {
-      const speed = Number(photo.dataset.drift ?? -0.1);
-      gsap.to(photo, { yPercent: speed * 100, ease: 'none', scrollTrigger: scrub });
+    drifters.forEach((el) => {
+      gsap.to(el, { yPercent: Number(el.dataset.drift) * 100, ease: 'none', scrollTrigger: scrub });
     });
 
     if (wordmark) {

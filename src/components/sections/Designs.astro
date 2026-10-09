@@ -1,39 +1,56 @@
 ---
-// 02 — Diseños. Optimiza las imágenes en el servidor y las pasa a la isla React (recorrido horizontal).
+// 02 — Diseños. Piezas agrupadas por categoría (Novias, Fiesta), cada grupo en una tira horizontal.
+// Las imágenes se optimizan en el servidor y se pasan a la isla React (lightbox incluido).
 import { getImage } from 'astro:assets';
+import SectionHeading from '../ui/SectionHeading.astro';
 import DesignGallery from '../islands/gallery/DesignGallery';
-import type { GalleryItem } from '../islands/gallery/types';
-import { categories, work } from '../../data/work';
+import type { GalleryGroup, GalleryItem } from '../islands/gallery/types';
+import { categories, work, type WorkItem } from '../../data/work';
 
-const labelOf = (id: string) => categories.find((c) => c.id === id)?.label ?? id;
+const toItem = async (piece: WorkItem, categoryLabel: string): Promise<GalleryItem> => {
+  const thumb = await getImage({ src: piece.image, widths: [400, 700], format: 'webp' });
+  const full = await getImage({ src: piece.image, width: 1600, format: 'webp' });
+  return {
+    id: piece.id,
+    title: piece.title,
+    category: piece.category,
+    categoryLabel,
+    alt: piece.alt,
+    focus: piece.focus,
+    src: thumb.src,
+    srcSet: thumb.srcSet.attribute,
+    full: full.src,
+    width: piece.image.width,
+    height: piece.image.height,
+  };
+};
 
-const items: GalleryItem[] = await Promise.all(
-  work.map(async (piece) => {
-    const thumb = await getImage({ src: piece.image, widths: [400, 700, 1000], format: 'webp' });
-    const full = await getImage({ src: piece.image, width: 1600, format: 'webp' });
-    return {
-      id: piece.id,
-      title: piece.title,
-      category: piece.category,
-      categoryLabel: labelOf(piece.category),
-      alt: piece.alt,
-      focus: piece.focus,
-      src: thumb.src,
-      srcSet: thumb.srcSet.attribute,
-      full: full.src,
-      width: piece.image.width,
-      height: piece.image.height,
-    };
-  }),
+const groups: GalleryGroup[] = await Promise.all(
+  categories.map(async (category) => ({
+    id: category.id,
+    label: category.label,
+    items: await Promise.all(
+      work.filter((piece) => piece.category === category.id).map((piece) => toItem(piece, category.label)),
+    ),
+  })),
 );
 ---
 
-<section id="disenos" aria-labelledby="disenos-title" data-section="02" data-section-label="Diseños">
-  <DesignGallery
-    client:load
-    items={items}
-    filters={categories}
-    label="Diseños"
-    title="Piezas hechas una sola vez."
-  />
+<section class="designs" id="disenos" aria-labelledby="disenos-title" data-section="02" data-section-label="Diseños">
+  <div class="wrap">
+    <SectionHeading label="Diseños" title="Piezas hechas una sola vez." id="disenos-title" />
+    <div class="designs__groups">
+      <DesignGallery client:visible groups={groups} />
+    </div>
+  </div>
 </section>
+
+<style>
+  .designs {
+    padding-block: var(--section-y);
+  }
+
+  .designs__groups {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+</style>

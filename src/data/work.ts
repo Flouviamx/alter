@@ -13,13 +13,12 @@ import nocheFucsia from '../assets/work/noche-fucsia-flores.jpg';
 import tallerTerracota from '../assets/work/taller-terracota.jpg';
 import tallerChampagne from '../assets/work/taller-champagne.jpg';
 
-export type Category = 'novias' | 'noche' | 'taller';
+// Grupos de la sección Diseños, en el orden en que se muestran (boceto de la clienta: Novias, Fiesta).
+export type Category = 'novias' | 'fiesta';
 
-export const categories: { id: Category | 'todo'; label: string }[] = [
-  { id: 'todo', label: 'Todo' },
+export const categories: { id: Category; label: string }[] = [
   { id: 'novias', label: 'Novias' },
-  { id: 'noche', label: 'Noche' },
-  { id: 'taller', label: 'Taller' },
+  { id: 'fiesta', label: 'Fiesta' },
 ];
 
 export interface WorkItem {
@@ -43,14 +42,14 @@ export const work: WorkItem[] = [
   {
     id: 'noche-negro',
     title: 'Strapless negro con rosa',
-    category: 'noche',
+    category: 'fiesta',
     image: nocheNegro,
     alt: 'Vestido largo negro strapless con una rosa de satín rosa en la cintura',
   },
   {
     id: 'taller-terracota',
     title: 'Satín terracota, un hombro',
-    category: 'taller',
+    category: 'fiesta',
     image: tallerTerracota,
     alt: 'Vestido de satín color terracota de un hombro sobre maniquí en el taller',
   },
@@ -64,14 +63,14 @@ export const work: WorkItem[] = [
   {
     id: 'noche-azul',
     title: 'Azul rey, hombros caídos',
-    category: 'noche',
+    category: 'fiesta',
     image: nocheAzul,
     alt: 'Vestido largo azul rey con hombros caídos frente a un arreglo floral',
   },
   {
     id: 'taller-champagne',
     title: 'Champagne drapeado',
-    category: 'taller',
+    category: 'fiesta',
     image: tallerChampagne,
     alt: 'Vestido champagne asimétrico con drapeado lateral sobre maniquí',
   },
@@ -85,7 +84,7 @@ export const work: WorkItem[] = [
   {
     id: 'noche-fucsia',
     title: 'Fucsia con flores 3D',
-    category: 'noche',
+    category: 'fiesta',
     image: nocheFucsia,
     alt: 'Vestido largo fucsia con flores tridimensionales del mismo tono',
     focus: '72% 40%',
@@ -100,7 +99,7 @@ export const work: WorkItem[] = [
   {
     id: 'noche-coral',
     title: 'Shantung coral con lazo',
-    category: 'noche',
+    category: 'fiesta',
     image: nocheCoral,
     alt: 'Vestido largo coral de shantung con gran lazo en la cintura',
     focus: '30% 50%',

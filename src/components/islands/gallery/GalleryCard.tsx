@@ -14,7 +14,7 @@ export default function GalleryCard({ item, index, onOpen }: Props) {
           <img
             src={item.src}
             srcSet={item.srcSet}
-            sizes="(max-width: 640px) 70vw, 28vw"
+            sizes="(max-width: 640px) 60vw, 16rem"
             width={item.width}
             height={item.height}
             alt={item.alt}
@@ -26,7 +26,6 @@ export default function GalleryCard({ item, index, onOpen }: Props) {
         <span className="gallery__caption">
           <span className="gallery__index">{String(index + 1).padStart(2, '0')}</span>
           <span className="gallery__item-title">{item.title}</span>
-          <span className="gallery__category">{item.categoryLabel}</span>
         </span>
       </button>
     </li>

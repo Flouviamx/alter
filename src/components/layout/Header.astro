@@ -2,12 +2,13 @@
 // Navegación flotante: marca apilada a la izquierda, "Agenda" + botón Menú a la derecha. Sin barra.
 import InstagramIcon from '../ui/icons/InstagramIcon.astro';
 import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+import Wordmark from '../ui/Wordmark.astro';
 import { site } from '../../data/site';
 ---
 
 <header class="header" data-header>
   <a href="#top" class="header__brand" aria-label={`${site.name}, inicio`}>
-    <span class="header__mark display">Anter</span>
+    <Wordmark class="header__mark" />
     <span class="header__sub">House</span>
   </a>
 
@@ -71,11 +72,8 @@ import { site } from '../../data/site';
     line-height: 1;
   }
 
-  .header__mark {
-    font-size: 1.45rem;
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
-    text-transform: uppercase;
+  .header__brand :global(.header__mark) {
+    width: 5.6rem;
   }
 
   .header__sub {

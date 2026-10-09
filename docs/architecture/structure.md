@@ -18,20 +18,20 @@ src/
 ├── assets/work/              fotos del portafolio (procesadas por astro:assets)
 ├── components/
 │   ├── layout/               Header, Menu, SectionTicker, Footer
-│   ├── sections/             Hero, Essence, Statement, Designs, Services, Appointment, NotFound
+│   ├── sections/             Hero, Essence, Designs, Services, Appointment, NotFound
 │   ├── blocks/               PriceFlyer (WebGL + respaldo), PriceList (HTML)
-│   ├── ui/                   Button, ArrowCircle, SectionHeading, WordReveal, FigCaption
+│   ├── ui/                   Wordmark, Button, ArrowCircle, SectionHeading, WordReveal, FigCaption
 │   │   └── icons/            InstagramIcon, WhatsAppIcon
 │   ├── seo/                  Seo.astro (<head>: meta, OG, canonical, JSON-LD)
 │   └── islands/
-│       ├── gallery/          DesignGallery, FilterTabs, GalleryCard, Lightbox, types, gallery.css
+│       ├── gallery/          DesignGallery, GalleryRow, GalleryCard, Lightbox, types, gallery.css
 │       └── contact/          ContactForm, StepText, StepChoice, StepSummary, StepHeader, FormProgress, message, contact.css
-├── data/                     site.ts, work.ts, services.ts, seo.ts, contactForm.ts
+├── data/                     site.ts, work.ts, services.ts, seo.ts, contactForm.ts, wordmark.ts
 ├── layouts/Layout.astro      <head>, slot "fixed", wrapper de ScrollSmoother
 ├── pages/                    index, 404, robots.txt, sitemap.xml, llms.txt
 ├── scripts/
 │   ├── menu.ts, ticker.ts
-│   ├── motion/               gsap, smooth, reveal, hero, statement, hoverPreview, pointerDepth, footer
+│   ├── motion/               gsap, smooth, reveal, hero, hoverPreview, pointerDepth, footer
 │   └── webgl/                priceFlyer, pushPin, flyerTexture, shaders/*.glsl
 └── styles/global.css         tokens, reset, utilidades, estados iniciales de animación
 ```

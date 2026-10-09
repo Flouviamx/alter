@@ -3,6 +3,7 @@
 import { nav, site } from '../../data/site';
 import InstagramIcon from '../ui/icons/InstagramIcon.astro';
 import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+import Wordmark from '../ui/Wordmark.astro';
 
 const year = new Date().getFullYear();
 ---
@@ -22,8 +23,9 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="footer__logo">
-    <p class="footer__mark display" aria-label="Anter">
-      {'ANTER'.split('').map((l) => <span class="footer__letter" aria-hidden="true" data-footer-letter>{l}</span>)}
+    <p class="footer__mark">
+      <span class="sr-only">Anter</span>
+      <Wordmark letterAttr="data-footer-letter" />
     </p>
     <p class="footer__house">House</p>
     <p class="footer__tagline">{site.tagline}</p>
@@ -78,16 +80,14 @@ const year = new Date().getFullYear();
   }
 
   .footer__mark {
-    display: flex;
-    justify-content: center;
-    font-size: clamp(5.5rem, 21vw, 24rem);
-    line-height: 0.8;
-    letter-spacing: 0.07em;
-    padding-left: 0.07em;
+    width: min(46vw, 860px);
+    margin-inline: auto;
   }
 
-  .footer__letter {
-    display: inline-block;
+  @media (max-width: 860px) {
+    .footer__mark {
+      width: 78vw;
+    }
   }
 
   .footer__house {

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import ArrowCircle from '../ui/ArrowCircle.astro';
+import Wordmark from '../ui/Wordmark.astro';
 import { byId } from '../../data/work';
 import { nav, site } from '../../data/site';
 
@@ -15,9 +16,13 @@ const index = nav;
 <section class="hero" id="top" aria-labelledby="hero-title">
   <p class="hero__vertical display" data-intro>Hecho a tu medida,<br />puntada a puntada.</p>
 
-  <figure class="hero__photo hero__photo--main" data-photo data-drift="-0.12">
-    <Image src={main.image} alt={main.alt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 56vw, 22vw" loading="eager" fetchpriority="high" />
-  </figure>
+  <!-- Foto principal + "est. 2024" en un mismo contenedor: se mueven juntos en el parallax -->
+  <div class="hero__main" data-drift="-0.12">
+    <figure class="hero__photo" data-photo>
+      <Image src={main.image} alt={main.alt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 58vw, 22vw" loading="eager" fetchpriority="high" />
+    </figure>
+    <p class="hero__est display" data-intro>est. 2024</p>
+  </div>
   <figure class="hero__photo hero__photo--small" data-photo data-drift="-0.3">
     <Image src={small.image} alt={small.alt} widths={[320, 640]} sizes="(max-width: 860px) 32vw, 11vw" loading="eager" />
   </figure>
@@ -41,15 +46,12 @@ const index = nav;
         </li>
       ))}
     </ul>
-    <p class="hero__index-note">Moda a la medida en {site.city} Novias, noche y confección.</p>
   </nav>
 
   <div class="hero__wordmark" data-wordmark>
-    <h1 id="hero-title" class="display">
+    <h1 id="hero-title" class="hero__title">
       <span class="sr-only">Anter House: vestidos a la medida y de novia en Monterrey</span>
-      <span class="hero__letters" aria-hidden="true">
-        {'ANTER'.split('').map((l) => <span class="hero__letter" data-letter>{l}</span>)}
-      </span>
+      <Wordmark letterAttr="data-letter" />
     </h1>
     <p class="hero__house" aria-hidden="true" data-intro>House</p>
     <p class="hero__tagline" aria-hidden="true" data-intro>{site.tagline}</p>
@@ -92,11 +94,24 @@ const index = nav;
     object-fit: cover;
   }
 
-  .hero__photo--main {
+  .hero__main {
+    position: absolute;
     left: 19vw;
     top: 15svh;
+    z-index: 2;
     width: 22vw;
+  }
+
+  .hero__main .hero__photo {
+    position: relative;
     aspect-ratio: 3 / 4;
+  }
+
+  /* Año de fundación bajo la foto principal, como pie editorial */
+  .hero__est {
+    margin-top: 0.7rem;
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
+    letter-spacing: 0.12em;
   }
 
   .hero__photo--small {
@@ -106,9 +121,10 @@ const index = nav;
     aspect-ratio: 4 / 5;
   }
 
+  /* A la izquierda de la foto principal, sin tapar su "est. 2024" */
   .hero__photo--workshop {
-    left: 10vw;
-    top: 54svh;
+    left: 6vw;
+    top: 58svh;
     width: 11vw;
     aspect-ratio: 3 / 4;
   }
@@ -170,17 +186,7 @@ const index = nav;
     transform: translateX(6px);
   }
 
-  /* Alineada a la derecha y angosta: así queda fuera de la "R" del wordmark */
-  .hero__index-note {
-    margin: 1.2rem 0 0 auto;
-    max-width: 17ch;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    text-align: right;
-    color: var(--tinta-soft);
-  }
-
-  /* Wordmark: réplica tipográfica del logo */
+  /* Wordmark: trazos del logo original (ui/Wordmark.astro) */
   .hero__wordmark {
     position: absolute;
     left: 0;
@@ -191,19 +197,9 @@ const index = nav;
     pointer-events: none;
   }
 
-  .hero__wordmark h1 {
-    font-size: clamp(5.5rem, 21vw, 24rem);
-    line-height: 0.8;
-    letter-spacing: 0.07em;
-    padding-left: 0.07em;
-  }
-
-  .hero__letters {
-    display: inline-flex;
-  }
-
-  .hero__letter {
-    display: inline-block;
+  .hero__title {
+    width: min(46vw, 860px);
+    margin-inline: auto;
   }
 
   .hero__house {
@@ -231,10 +227,14 @@ const index = nav;
       font-size: 1.2rem;
     }
 
-    .hero__photo--main {
+    .hero__main {
       left: 16vw;
       top: 12svh;
       width: 58vw;
+    }
+
+    .hero__title {
+      width: 82vw;
     }
 
     .hero__photo--small {
@@ -257,7 +257,7 @@ const index = nav;
     }
 
     .hero__wordmark {
-      bottom: 7svh;
+      bottom: 9svh;
     }
   }
 

@@ -1,0 +1,32 @@
+---
+// Wordmark ANTER fiel al logo original (trazos en src/data/wordmark.ts). Toma el color del texto (currentColor).
+// letterAttr: atributo que se agrega a cada letra para animarla (p. ej. "data-letter" en el hero).
+// Decorativo por defecto: quien lo usa provee el texto accesible (sr-only o aria-label en el enlace).
+import { WORDMARK_HEIGHT, WORDMARK_WIDTH, wordmarkGlyphs } from '../../data/wordmark';
+
+interface Props {
+  class?: string;
+  letterAttr?: string;
+}
+
+const { class: className, letterAttr } = Astro.props;
+---
+
+<svg
+  class:list={['wordmark', className]}
+  viewBox={`0 0 ${WORDMARK_WIDTH} ${WORDMARK_HEIGHT}`}
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  {wordmarkGlyphs.map((glyph) => <path d={glyph.d} {...(letterAttr ? { [letterAttr]: glyph.letter } : {})} />)}
+</svg>
+
+<style>
+  .wordmark {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+</style>

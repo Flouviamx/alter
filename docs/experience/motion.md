@@ -33,15 +33,14 @@ Principio: **elegante y amortiguado**. El movimiento acompaña al scroll; nunca 
 
 | Script | Dónde | Qué hace |
 |---|---|---|
-| `hero.ts` | Hero y 404 | Fotos con clip-path, letras con stagger y parallax (`data-drift`) |
-| `statement.ts` | Statement | "Hecho a" y "tu medida" se cruzan en sentidos opuestos |
+| `hero.ts` | Hero y 404 | Fotos con clip-path (`data-photo`), letras con stagger (`data-letter`, spans o paths del SVG) y parallax (`data-drift`, puede envolver foto + pie) |
 | `hoverPreview.ts` | Servicios | Foto flotante que sigue al cursor (solo con hover real) |
 | `pointerDepth.ts` | 404 | Fotos con profundidad según el cursor (`data-depth`) |
 | `footer.ts` | Footer | El wordmark se arma letra por letra con el scroll |
-| `DesignGallery.tsx` | Diseños | Pin + recorrido horizontal, parallax interno (`containerAnimation`) y contador |
+| `DesignGallery.tsx` | Diseños | Las tarjetas de cada grupo suben en cascada al entrar |
 
-## Galería horizontal (detalles)
+## Galería (detalles)
 
-- El trigger fijado usa `refreshPriority: 1` y luego `ScrollTrigger.refresh()`, para que los triggers de abajo midan con el pin-spacer incluido.
-- Con `revertOnUpdate`, el pin se reconstruye al cambiar de filtro. Si el usuario estaba a mitad del recorrido, vuelve al inicio de la galería.
-- Con reduced motion no hay pin: la galería es un scroll horizontal nativo.
+- Cada grupo (Novias, Fiesta) es una tira con scroll horizontal nativo y `scroll-snap`; no hay pin ni scroll secuestrado.
+- Las flechas solo aparecen si la tira desborda. El borde derecho se desvanece (máscara) mientras quedan piezas por ver.
+- Con reduced motion no hay cascada de entrada y las flechas desplazan sin animación.

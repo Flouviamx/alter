@@ -42,9 +42,11 @@ H O U S E
 b e s p o k e   f a s h i o n
 ```
 
-En la web se **recrea tipográficamente** (Hero, Header, Footer, flyer). Todavía no hay archivo vectorial.
+**`ANTER` es un SVG fiel al logo** (`data/wordmark.ts` → `ui/Wordmark.astro`). Cada letra se midió en `refs/logo-anter-house.jpg` y se redibujó como contorno geométrico limpio, con 97–99 % de coincidencia por letra. Se usa en hero, header, footer, 404, tarjeta de precios y en la textura WebGL del flyer (`Path2D`). No escribas "ANTER" con una fuente.
 
-**Pendiente:** pedir el logo en SVG y el nombre de la fuente original.
+`HOUSE` y `bespoke fashion` siguen como texto en Jost: son demasiado pequeños en la imagen para trazarlos con precisión.
+
+**Pendiente:** si la clienta consigue el archivo original del logo (SVG/PDF de Canva), reemplazar los trazos de `data/wordmark.ts`.
 
 ## Paleta
 

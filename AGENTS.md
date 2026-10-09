@@ -71,7 +71,7 @@ Runtime: Node `>=22.12.0` (ver `.nvmrc`).
 |---|---|
 | Logo, paleta, tipografía, estilo editorial y tono | [`docs/brand/identity.md`](./docs/brand/identity.md) |
 | Stack, carpetas y convenciones de código | [`docs/architecture/structure.md`](./docs/architecture/structure.md) |
-| GSAP: ScrollSmoother, reveals, pin horizontal, ticker | [`docs/experience/motion.md`](./docs/experience/motion.md) |
+| GSAP: ScrollSmoother, reveals, galería, ticker | [`docs/experience/motion.md`](./docs/experience/motion.md) |
 | Three.js: flyer de papel con chinche | [`docs/experience/webgl.md`](./docs/experience/webgl.md) |
 | Navegación: header flotante, menú y ticker | [`docs/experience/navigation.md`](./docs/experience/navigation.md) |
 | Formulario de contacto tipo Typeform → WhatsApp | [`docs/experience/contact-form.md`](./docs/experience/contact-form.md) |
@@ -89,6 +89,7 @@ Las imágenes de referencia de la clienta (logo, flyer, moodboard, boceto) está
 |---|---|
 | Dominio de producción | `SITE_URL` en `astro.config.mjs` |
 | Tokens de color, tipografía y reset | `src/styles/global.css` |
+| Wordmark ANTER (trazos del logo original) | `src/data/wordmark.ts` → `ui/Wordmark.astro` |
 | Contacto y navegación | `src/data/site.ts` |
 | Piezas del portafolio y categorías | `src/data/work.ts` |
 | Servicios y precios | `src/data/services.ts` |

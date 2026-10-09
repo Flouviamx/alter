@@ -4,6 +4,7 @@
 import { Image } from 'astro:assets';
 import ArrowCircle from '../ui/ArrowCircle.astro';
 import WhatsAppIcon from '../ui/icons/WhatsAppIcon.astro';
+import Wordmark from '../ui/Wordmark.astro';
 import { byId } from '../../data/work';
 import { site } from '../../data/site';
 
@@ -20,19 +21,19 @@ const links = [
 
 <section class="nf" aria-labelledby="nf-title">
   <a href="/" class="nf__brand" aria-label={`${site.name}, inicio`}>
-    <span class="nf__mark display">Anter</span>
+    <Wordmark class="nf__mark" />
     <span class="nf__sub">House</span>
   </a>
 
   <p class="nf__vertical display" data-intro>Esta página<br />se descosió.</p>
 
-  <figure class="nf__photo nf__photo--main" data-photo data-depth="0.5">
+  <figure class="nf__photo nf__photo--main" data-photo data-drift="-0.1" data-depth="0.5">
     <Image src={main.image} alt={main.alt} widths={[400, 700]} sizes="(max-width: 860px) 46vw, 18vw" loading="eager" />
   </figure>
-  <figure class="nf__photo nf__photo--small" data-photo data-depth="1.1">
+  <figure class="nf__photo nf__photo--small" data-photo data-drift="-0.1" data-depth="1.1">
     <Image src={small.image} alt={small.alt} widths={[300, 500]} sizes="(max-width: 860px) 28vw, 10vw" loading="eager" />
   </figure>
-  <figure class="nf__photo nf__photo--side" data-photo data-depth="0.8">
+  <figure class="nf__photo nf__photo--side" data-photo data-drift="-0.1" data-depth="0.8">
     <Image src={side.image} alt={side.alt} widths={[300, 500]} sizes="(max-width: 860px) 0px, 11vw" loading="eager" />
   </figure>
 
@@ -87,11 +88,8 @@ const links = [
     line-height: 1;
   }
 
-  .nf__mark {
-    font-size: 1.45rem;
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
-    text-transform: uppercase;
+  .nf__brand :global(.nf__mark) {
+    width: 5.6rem;
   }
 
   .nf__sub {
