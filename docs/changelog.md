@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-10-12: v0.7 (galería: Flip y satín)
+
+- **Lightbox con GSAP Flip:**
+  - al tocar una pieza, la foto vuela desde su tarjeta hasta pantalla completa;
+  - al cerrar (botón, Esc o clic fuera) regresa a su tarjeta;
+  - mientras carga la versión grande se ve la miniatura, así el vuelo nunca muestra un hueco;
+  - el fondo es una capa aparte que se funde sin afectar la foto;
+  - con reduced motion abre y cierra sin animación.
+- **Efecto satín (WebGL puro):**
+  - al hojear las fotos de una tarjeta con el mouse, una ola de tela cruza la imagen, la pliega levemente y deja un brillo tenue antes de mostrar la foto nueva;
+  - usa un solo canvas para toda la página y replica el recorte de cada foto;
+  - el fundido CSS queda como respaldo sin WebGL y con reduced motion.
+- Se probaron y descartaron, por decisión del equipo:
+  - un hilo de puntada animado (hero y separadores);
+  - una etiqueta colgante "Disponible" en Piezas disponibles.
+
 ## 2026-10-12: v0.6 (segunda ronda de la clienta)
 
 - **Diseños, Novias:**

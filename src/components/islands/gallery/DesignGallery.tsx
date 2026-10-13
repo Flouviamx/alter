@@ -1,11 +1,12 @@
 // Galería de diseños agrupada por categoría (boceto de la clienta: Novias, Fiesta).
-// Cada grupo es una tira horizontal; al hacer clic se abre el lightbox con todas las fotos de todas las piezas en orden.
+// Cada grupo es una tira horizontal; al hacer clic la foto vuela al lightbox (Flip), que recorre todas las fotos en orden.
 import { useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import GalleryRow from './GalleryRow';
 import Lightbox from './Lightbox';
+import { captureCard, type FlipOrigin } from './transitions';
 import type { GalleryGroup, GallerySlide } from './types';
 import './gallery.css';
 
@@ -18,6 +19,7 @@ interface Props {
 export default function DesignGallery({ groups }: Props) {
   const [open, setOpen] = useState<number | null>(null);
   const root = useRef<HTMLDivElement>(null);
+  const origin = useRef<FlipOrigin | null>(null);
 
   const slides = useMemo<GallerySlide[]>(
     () =>
@@ -27,8 +29,12 @@ export default function DesignGallery({ groups }: Props) {
     [groups],
   );
 
-  const openAt = (id: string, photoIndex: number) =>
+  const cardFor = (id: string) => root.current?.querySelector<HTMLElement>(`[data-flip-id="${id}"]`) ?? null;
+
+  const openAt = (id: string, photoIndex: number) => {
+    origin.current = captureCard(cardFor(id));
     setOpen(slides.findIndex((slide) => slide.item.id === id && slide.photoIndex === photoIndex));
+  };
 
   // Entrada: las tarjetas de cada fila suben en cascada al entrar en pantalla.
   useGSAP(
@@ -59,7 +65,16 @@ export default function DesignGallery({ groups }: Props) {
         <GalleryRow key={group.id} group={group} onOpen={openAt} />
       ))}
 
-      {open !== null && <Lightbox slides={slides} index={open} onClose={() => setOpen(null)} onNavigate={setOpen} />}
+      {open !== null && (
+        <Lightbox
+          slides={slides}
+          index={open}
+          origin={origin.current}
+          cardFor={cardFor}
+          onClose={() => setOpen(null)}
+          onNavigate={setOpen}
+        />
+      )}
     </div>
   );
 }

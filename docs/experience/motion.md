@@ -37,10 +37,16 @@ Principio: **elegante y amortiguado**. El movimiento acompaña al scroll; nunca 
 | `pointerDepth.ts` | 404 | Fotos con profundidad según el cursor (`data-depth`) |
 | `footer.ts` | Footer | El wordmark se arma letra por letra con el scroll |
 | `DesignGallery.tsx` | Diseños y Piezas disponibles | Las tarjetas de cada grupo suben en cascada al entrar |
+| `islands/gallery/transitions.ts` | Lightbox | GSAP Flip: la foto vuela de la tarjeta al lightbox y regresa al cerrar |
+| `webgl/satin.ts` | Tarjetas de la galería | Al hojear fotos con el mouse, una ola de satín cruza la imagen (ver `docs/experience/webgl.md`) |
 
 ## Galería (detalles)
 
 - Cada grupo (Novias, Fiesta) es una tira con scroll horizontal nativo y `scroll-snap`; no hay pin ni scroll secuestrado.
-- Una tarjeta por vestido. Si tiene varias fotos, la posición del mouse sobre la foto elige cuál se ve (fundido de 0.6 s) y unas rayitas abajo indican cuántas hay; al salir vuelve a la portada. En touch no hay hojeo: al tocar se abre el lightbox, que recorre foto por foto.
+- Una tarjeta por vestido. Si tiene varias fotos, la posición del mouse sobre la foto elige cuál se ve y unas rayitas abajo indican cuántas hay. Cada cambio pasa con la ola de satín (WebGL) sobre un fundido CSS de 0.6 s, que es el respaldo sin WebGL. Al salir, la portada vuelve solo con el fundido. En touch no hay hojeo: al tocar se abre el lightbox, que recorre foto por foto.
+- **Lightbox con Flip:** la tarjeta (`.gallery__media`) y la foto del lightbox (`.lightbox__media`) comparten `data-flip-id`.
+  - Al abrir, la foto crece desde el lugar exacto de la tarjeta mientras el fondo se oscurece. Los botones y el pie aparecen al final.
+  - Mientras carga la foto grande se ve la miniatura en caché, así el vuelo nunca muestra un hueco.
+  - Al cerrar, si la tarjeta está a la vista la foto regresa a ella (y se funde si la tarjeta muestra otra foto); si no, todo se desvanece.
 - Las flechas solo aparecen si la tira desborda. El borde derecho se desvanece (máscara) mientras quedan piezas por ver.
-- Con reduced motion no hay cascada de entrada, las fotos cambian sin fundido y las flechas desplazan sin animación.
+- Con reduced motion no hay cascada de entrada, las fotos cambian sin fundido, el lightbox abre y cierra sin vuelo y las flechas desplazan sin animación.

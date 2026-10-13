@@ -121,6 +121,22 @@
   scale: 1.05;
 }
 
+/* Canvas del efecto satín (scripts/webgl/satin.ts): cubre la foto solo mientras dura la ola.
+   Lleva el mismo zoom de hover que las fotos para coincidir con ellas. */
+.gallery__satin {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  pointer-events: none;
+  transition: scale 1.1s var(--ease-out);
+}
+
+.gallery__card:hover .gallery__satin {
+  scale: 1.05;
+}
+
 /* Rayitas: cuántas fotos tiene la pieza y cuál se ve */
 .gallery__dots {
   position: absolute;
@@ -144,7 +160,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gallery__media img {
+  .gallery__media img,
+  .lightbox__full {
     transition: none;
   }
 }
@@ -183,7 +200,7 @@
   }
 }
 
-/* Lightbox (portal en <body>) */
+/* Lightbox (portal en <body>). El fondo es una capa aparte para fundirlo sin tocar la foto que vuela. */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -191,23 +208,55 @@
   display: grid;
   place-items: center;
   padding: 4.5rem clamp(1rem, 6vw, 6rem) 2rem;
-  background: color-mix(in srgb, var(--tinta) 97%, transparent);
   color: var(--lino);
 }
 
-.lightbox__figure {
-  display: grid;
-  gap: 1rem;
-  margin: 0;
-  max-height: 100%;
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--tinta) 97%, transparent);
 }
 
-.lightbox__figure img {
-  width: auto;
-  max-width: min(100%, 1100px);
-  max-height: calc(100svh - 11rem);
-  object-fit: contain;
+/* La figura deja pasar el clic al fondo (cerrar); solo la foto y el pie lo capturan */
+.lightbox__figure {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Caja con la proporción de la foto: ocupa su lugar final mientras la foto vuela por encima */
+.lightbox__frame {
+  position: relative;
+  width: min(100%, 1100px, calc((100svh - 11rem) * var(--ar)));
+  aspect-ratio: var(--ar);
   margin-inline: auto;
+  pointer-events: auto;
+}
+
+.lightbox__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.lightbox__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* igual que la tarjeta: el vuelo empieza con el mismo recorte */
+}
+
+.lightbox__full {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.lightbox__full.is-loaded {
+  opacity: 1;
 }
 
 .lightbox__figure figcaption {
@@ -216,6 +265,7 @@
   justify-content: center;
   gap: 1.2rem;
   flex-wrap: wrap;
+  pointer-events: auto;
 }
 
 .lightbox__figure .gallery__category {

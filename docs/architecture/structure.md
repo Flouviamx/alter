@@ -24,7 +24,7 @@ src/
 │   │   └── icons/            InstagramIcon, WhatsAppIcon
 │   ├── seo/                  Seo.astro (<head>: meta, OG, canonical, JSON-LD)
 │   └── islands/
-│       ├── gallery/          DesignGallery, GalleryRow, GalleryCard, Lightbox, types, groups (solo servidor), gallery.css
+│       ├── gallery/          DesignGallery, GalleryRow, GalleryCard, Lightbox, transitions (Flip), types, groups (solo servidor), gallery.css
 │       └── contact/          ContactForm, StepText, StepChoice, StepSummary, StepHeader, FormProgress, message, contact.css
 ├── data/                     site.ts, work.ts, services.ts, seo.ts, contactForm.ts, wordmark.ts
 ├── layouts/Layout.astro      <head>, slot "fixed", wrapper de ScrollSmoother
@@ -32,7 +32,7 @@ src/
 ├── scripts/
 │   ├── menu.ts, ticker.ts
 │   ├── motion/               gsap, smooth, reveal, hero, pointerDepth, footer
-│   └── webgl/                priceFlyer, pushPin, flyerTexture, shaders/*.glsl
+│   └── webgl/                priceFlyer, pushPin, flyerTexture, satin (WebGL puro), shaders/*.glsl
 └── styles/global.css         tokens, reset, utilidades, estados iniciales de animación
 ```
 
