@@ -1,6 +1,6 @@
-// Dibuja el flyer "Confección y ajustes" en un canvas 2D para usarlo como textura.
+// Dibuja el flyer de precios en un canvas 2D para usarlo como textura.
 // Lee los mismos datos que la lista HTML (src/data/services.ts): una sola fuente de verdad.
-import { expressSurcharge, priceList, priceNote } from '../../data/services';
+import { expressSurcharge, priceList, priceListTitle, priceNote } from '../../data/services';
 import { WORDMARK_HEIGHT, WORDMARK_WIDTH, wordmarkGlyphs } from '../../data/wordmark';
 
 export const FLYER_WIDTH = 1000;
@@ -95,7 +95,7 @@ export async function createFlyerCanvas() {
   ctx.font = `400 22px ${SANS}`;
   drawSpaced(ctx, 'HOUSE', FLYER_WIDTH / 2, 282, 14, 'center');
   ctx.font = `350 26px ${SANS}`;
-  drawSpaced(ctx, 'CONFECCIÓN Y AJUSTES', FLYER_WIDTH / 2, 346, 9, 'center');
+  drawSpaced(ctx, priceListTitle.toUpperCase(), FLYER_WIDTH / 2, 346, 9, 'center');
 
   // Grupos de precios
   let y = 432;

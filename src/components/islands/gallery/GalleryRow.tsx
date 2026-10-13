@@ -6,7 +6,7 @@ import type { GalleryGroup } from './types';
 
 interface Props {
   group: GalleryGroup;
-  onOpen: (id: string) => void;
+  onOpen: (id: string, photoIndex: number) => void;
 }
 
 export default function GalleryRow({ group, onOpen }: Props) {

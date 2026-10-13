@@ -34,13 +34,13 @@ Principio: **elegante y amortiguado**. El movimiento acompaña al scroll; nunca 
 | Script | Dónde | Qué hace |
 |---|---|---|
 | `hero.ts` | Hero y 404 | Fotos con clip-path (`data-photo`), letras con stagger (`data-letter`, spans o paths del SVG) y parallax (`data-drift`, puede envolver foto + pie) |
-| `hoverPreview.ts` | Servicios | Foto flotante que sigue al cursor (solo con hover real) |
 | `pointerDepth.ts` | 404 | Fotos con profundidad según el cursor (`data-depth`) |
 | `footer.ts` | Footer | El wordmark se arma letra por letra con el scroll |
-| `DesignGallery.tsx` | Diseños | Las tarjetas de cada grupo suben en cascada al entrar |
+| `DesignGallery.tsx` | Diseños y Piezas disponibles | Las tarjetas de cada grupo suben en cascada al entrar |
 
 ## Galería (detalles)
 
 - Cada grupo (Novias, Fiesta) es una tira con scroll horizontal nativo y `scroll-snap`; no hay pin ni scroll secuestrado.
+- Una tarjeta por vestido. Si tiene varias fotos, la posición del mouse sobre la foto elige cuál se ve (fundido de 0.6 s) y unas rayitas abajo indican cuántas hay; al salir vuelve a la portada. En touch no hay hojeo: al tocar se abre el lightbox, que recorre foto por foto.
 - Las flechas solo aparecen si la tira desborda. El borde derecho se desvanece (máscara) mientras quedan piezas por ver.
-- Con reduced motion no hay cascada de entrada y las flechas desplazan sin animación.
+- Con reduced motion no hay cascada de entrada, las fotos cambian sin fundido y las flechas desplazan sin animación.

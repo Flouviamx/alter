@@ -5,12 +5,14 @@ import Wordmark from '../ui/Wordmark.astro';
 import { byId } from '../../data/work';
 import { nav, site } from '../../data/site';
 
-const main = byId('novia-terraza');
-const small = byId('noche-negro');
-const workshop = byId('taller-terracota');
-const detail = byId('novia-alcatraces');
+// Fotos de la sesión del taller (la clienta las pidió para la página de inicio).
+const main = byId('proceso-manos');
+const small = byId('proceso-maquina');
+const workshop = byId('proceso-alfileres');
+const detail = byId('proceso-mesa');
 
 const index = nav;
+const framing = (photo: { focus?: string }) => (photo.focus ? `object-position: ${photo.focus}` : undefined);
 ---
 
 <section class="hero" id="top" aria-labelledby="hero-title">
@@ -19,18 +21,18 @@ const index = nav;
   <!-- Foto principal + "est. 2024" en un mismo contenedor: se mueven juntos en el parallax -->
   <div class="hero__main" data-drift="-0.12">
     <figure class="hero__photo" data-photo>
-      <Image src={main.image} alt={main.alt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 58vw, 22vw" loading="eager" fetchpriority="high" />
+      <Image src={main.image} alt={main.alt} style={framing(main)} widths={[480, 800, 1200]} sizes="(max-width: 860px) 58vw, 22vw" loading="eager" fetchpriority="high" />
     </figure>
     <p class="hero__est display" data-intro>est. 2024</p>
   </div>
   <figure class="hero__photo hero__photo--small" data-photo data-drift="-0.3">
-    <Image src={small.image} alt={small.alt} widths={[320, 640]} sizes="(max-width: 860px) 32vw, 11vw" loading="eager" />
+    <Image src={small.image} alt={small.alt} style={framing(small)} widths={[320, 640]} sizes="(max-width: 860px) 32vw, 11vw" loading="eager" />
   </figure>
   <figure class="hero__photo hero__photo--workshop" data-photo data-drift="-0.2">
-    <Image src={workshop.image} alt={workshop.alt} widths={[320, 640]} sizes="(max-width: 860px) 34vw, 12vw" loading="eager" />
+    <Image src={workshop.image} alt={workshop.alt} style={framing(workshop)} widths={[320, 640]} sizes="(max-width: 860px) 34vw, 12vw" loading="eager" />
   </figure>
   <figure class="hero__photo hero__photo--detail" data-photo data-drift="-0.06">
-    <Image src={detail.image} alt={detail.alt} widths={[480, 800]} sizes="(max-width: 860px) 0px, 17vw" />
+    <Image src={detail.image} alt={detail.alt} style={framing(detail)} widths={[480, 800]} sizes="(max-width: 860px) 0px, 17vw" />
   </figure>
 
   <nav class="hero__index" aria-label="Índice" data-intro>

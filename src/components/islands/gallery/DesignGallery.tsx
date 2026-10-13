@@ -1,12 +1,12 @@
 // Galería de diseños agrupada por categoría (boceto de la clienta: Novias, Fiesta).
-// Cada grupo es una tira horizontal; al hacer clic se abre el lightbox con todas las piezas en orden.
+// Cada grupo es una tira horizontal; al hacer clic se abre el lightbox con todas las fotos de todas las piezas en orden.
 import { useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import GalleryRow from './GalleryRow';
 import Lightbox from './Lightbox';
-import type { GalleryGroup } from './types';
+import type { GalleryGroup, GallerySlide } from './types';
 import './gallery.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -16,9 +16,19 @@ interface Props {
 }
 
 export default function DesignGallery({ groups }: Props) {
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
   const root = useRef<HTMLDivElement>(null);
-  const allItems = useMemo(() => groups.flatMap((group) => group.items), [groups]);
+
+  const slides = useMemo<GallerySlide[]>(
+    () =>
+      groups
+        .flatMap((group) => group.items)
+        .flatMap((item, itemIndex) => item.photos.map((photo, photoIndex) => ({ item, photo, itemIndex, photoIndex }))),
+    [groups],
+  );
+
+  const openAt = (id: string, photoIndex: number) =>
+    setOpen(slides.findIndex((slide) => slide.item.id === id && slide.photoIndex === photoIndex));
 
   // Entrada: las tarjetas de cada fila suben en cascada al entrar en pantalla.
   useGSAP(
@@ -46,10 +56,10 @@ export default function DesignGallery({ groups }: Props) {
   return (
     <div ref={root} className="gallery">
       {groups.map((group) => (
-        <GalleryRow key={group.id} group={group} onOpen={setOpenId} />
+        <GalleryRow key={group.id} group={group} onOpen={openAt} />
       ))}
 
-      {openId && <Lightbox items={allItems} activeId={openId} onClose={() => setOpenId(null)} onNavigate={setOpenId} />}
+      {open !== null && <Lightbox slides={slides} index={open} onClose={() => setOpen(null)} onNavigate={setOpen} />}
     </div>
   );
 }

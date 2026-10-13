@@ -1,24 +1,21 @@
 ---
-// 03 — Servicios. Filas tipo índice (como el hero) con foto que sigue al cursor + flyer de precios en WebGL.
+// 04 — Servicios. Filas tipo índice (como el hero) + flyer de precios en WebGL.
 // Datos en src/data/services.ts.
-import { Image } from 'astro:assets';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ArrowCircle from '../ui/ArrowCircle.astro';
 import PriceFlyer from '../blocks/PriceFlyer.astro';
 import { services } from '../../data/services';
-import { byId } from '../../data/work';
-
-const rows = services.map((service) => ({ ...service, piece: byId(service.preview) }));
 ---
 
-<section class="services" id="servicios" aria-labelledby="servicios-title" data-section="03" data-section-label="Servicios">
+<section class="services" id="servicios" aria-labelledby="servicios-title" data-section="04" data-section-label="Servicios">
   <div class="services__inner wrap">
-    <div class="services__main" data-hover-root>
-      <SectionHeading label="Servicios" title="Del boceto al último ajuste." id="servicios-title" />
+    <div class="services__main">
+      <SectionHeading label="Servicios" />
+      <h2 id="servicios-title" class="sr-only">Servicios</h2>
 
       <ol class="services__list">
-        {rows.map((row, i) => (
-          <li class="services__row" data-reveal data-hover-row={i}>
+        {services.map((row) => (
+          <li class="services__row" data-reveal>
             <span class="services__n">{row.n}</span>
             <div class="services__copy">
               <h3 class="services__title">{row.title}</h3>
@@ -28,12 +25,6 @@ const rows = services.map((service) => ({ ...service, piece: byId(service.previe
           </li>
         ))}
       </ol>
-
-      <figure class="services__hover" aria-hidden="true" data-hover-figure>
-        {rows.map((row, i) => (
-          <Image src={row.piece.image} alt="" widths={[300, 500]} sizes="14rem" data-hover-img={i} loading="lazy" />
-        ))}
-      </figure>
     </div>
 
     <div class="services__aside">
@@ -45,6 +36,7 @@ const rows = services.map((service) => ({ ...service, piece: byId(service.previe
 <style>
   .services {
     padding-block: var(--section-y);
+    overflow-x: clip; /* el canvas del flyer sangra; sin esto hay scroll horizontal en móvil con reduced motion */
   }
 
   .services__inner {
@@ -52,10 +44,6 @@ const rows = services.map((service) => ({ ...service, piece: byId(service.previe
     grid-template-columns: 1.25fr 1fr;
     gap: clamp(3rem, 7vw, 7rem);
     align-items: center;
-  }
-
-  .services__main {
-    position: relative;
   }
 
   .services__list {
@@ -109,30 +97,6 @@ const rows = services.map((service) => ({ ...service, piece: byId(service.previe
     transform: translateX(6px);
   }
 
-  /* Foto flotante: posición y visibilidad las controla scripts/motion/hoverPreview.ts */
-  .services__hover {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    width: 14rem;
-    aspect-ratio: 3 / 4;
-    margin: 0;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    box-shadow: 0 30px 60px -30px rgb(35 38 28 / 0.55);
-  }
-
-  .services__hover :global(img) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-  }
-
   @media (max-width: 960px) {
     .services__inner {
       grid-template-columns: 1fr;
@@ -143,9 +107,3 @@ const rows = services.map((service) => ({ ...service, piece: byId(service.previe
     }
   }
 </style>
-
-<script>
-  import { initHoverPreview } from '../../scripts/motion/hoverPreview';
-
-  document.querySelectorAll<HTMLElement>('[data-hover-root]').forEach(initHoverPreview);
-</script>

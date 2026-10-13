@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-10-12: v0.6 (segunda ronda de la clienta)
+
+- **Diseños, Novias:**
+  - una tarjeta por vestido: "Vestido de novia" (2 fotos) y "Despedida" (3 fotos), en lugar de 5 fotos sueltas que parecían vestidos distintos;
+  - al pasar el mouse se hojean las fotos del mismo vestido, con rayitas que indican cuántas hay; el lightbox recorre foto por foto;
+  - títulos cortos, sin descripción.
+- `data/work.ts` separa `photos` (fotos sueltas, `byId`) de `pieces` (prendas con varias fotos). El título descriptivo de cada foto pasó a `caption`, que solo usa Esencia.
+- **Servicios:**
+  - se quitó la foto que seguía al cursor (`hoverPreview.ts` eliminado);
+  - se quitó el título "Del boceto al último ajuste."; queda la etiqueta "Servicios";
+  - la hoja de precios (HTML y WebGL) se titula "Servicios" (`priceListTitle`);
+  - textos de la clienta: Vestidos a la medida (cocktail y fiesta), Novias (novias, mamás y hermanas de los novios, despedidas y civiles), Ajustes (bastillas, ajustes de talle, cambio de cierres y enmiendas).
+- Formulario: opciones "Vestido de cocktail o fiesta" y "Ajustes", alineadas con los servicios.
+- **Piezas disponibles** (sección nueva 03, `sections/Available.astro`):
+  - prendas a la venta del correo "Completo": Vestidos (ivory y negro, verde y café) y Blusas y tops (top negro y blanco, blusa negra y café, blusa lila y pantalón negro);
+  - misma galería que Diseños; cada modelo en dos colores es una tarjeta que se hojea;
+  - botón "Preguntar" a WhatsApp;
+  - en el menú, el hero y el ticker; Servicios pasa a 04 y Cita a 05.
+- Fotos nuevas del correo "Fotos":
+  - Fiesta suma "Lila con capa" y "Fucsia strapless con olán" (3 fotos cada una);
+  - la novia de espaldas (`novia-espalda`) es el mismo vestido de novia, así que es su tercera foto.
+- `islands/gallery/groups.ts` arma los grupos de cada sección (`categories[].section`).
+- Fotos nuevas enderezadas, a 2400 px y sin metadatos (GPS).
+- Servicios: `overflow-x: clip` para que el canvas del flyer no cree scroll horizontal en móvil con reduced motion (ya pasaba antes).
+- **Hero:** las 4 fotos ahora son de la sesión del taller, como pidió la clienta para la página de inicio:
+  - principal: manos drapeando satín rosa;
+  - aguja de la máquina con hilo rosa;
+  - la diseñadora prendiendo alfileres en el maniquí;
+  - mesa de costura, recortada para quitar el desenfoque del primer plano.
+  Se usan como `proceso-*` en `photos`, sin ser piezas, y el hero ahora respeta `focus`. Los vestidos que estaban en el hero siguen en la galería. Se descartaron, por menos pulidas, la foto de la diseñadora de frente (IMG_3862) y la caja de hilos (IMG_3867).
+
 ## 2026-10-08: v0.5 (cambios de la clienta)
 
 - **Logo:** el wordmark `ANTER` ahora es un SVG reconstruido del logo original (97–99 % de coincidencia por letra), en hero, header, footer, 404, tarjeta de precios y flyer WebGL. En el hero es más chico.

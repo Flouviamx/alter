@@ -62,7 +62,8 @@ Runtime: Node `>=22.12.0` (ver `.nvmrc`).
 - Todo movimiento respeta `prefers-reduced-motion` y el patrón anti-parpadeo. Ver [`docs/experience/motion.md`](./docs/experience/motion.md).
 - El movimiento debe sentirse elegante: amortiguado y sutil, nunca exagerado.
 - Las fotos son de clientas reales: alt descriptivo y recortes que respeten la prenda.
-- **No repitas fotos fuera de la galería**: con 11 piezas, cada sección usa piezas distintas (ver `docs/content/portfolio.md`).
+- **No repitas fotos fuera de la galería**: cada sección usa fotos distintas (ver `docs/content/portfolio.md`).
+- **Una pieza = un vestido.** Fotos del mismo vestido van juntas en una sola tarjeta de la galería, nunca como piezas separadas.
 - Todo se valida en móvil (375 y 360 px): sin scroll horizontal ni texto fuera de pantalla.
 
 ## Directorio de documentación
@@ -91,7 +92,7 @@ Las imágenes de referencia de la clienta (logo, flyer, moodboard, boceto) está
 | Tokens de color, tipografía y reset | `src/styles/global.css` |
 | Wordmark ANTER (trazos del logo original) | `src/data/wordmark.ts` → `ui/Wordmark.astro` |
 | Contacto y navegación | `src/data/site.ts` |
-| Piezas del portafolio y categorías | `src/data/work.ts` |
+| Fotos, piezas (vestidos) y categorías | `src/data/work.ts` |
 | Servicios y precios | `src/data/services.ts` |
 | Preguntas del formulario de contacto | `src/data/contactForm.ts` |
 | Title, description y JSON-LD | `src/data/seo.ts` |

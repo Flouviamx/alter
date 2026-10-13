@@ -18,20 +18,20 @@ src/
 ├── assets/work/              fotos del portafolio (procesadas por astro:assets)
 ├── components/
 │   ├── layout/               Header, Menu, SectionTicker, Footer
-│   ├── sections/             Hero, Essence, Designs, Services, Appointment, NotFound
+│   ├── sections/             Hero, Essence, Designs, Available, Services, Appointment, NotFound
 │   ├── blocks/               PriceFlyer (WebGL + respaldo), PriceList (HTML)
 │   ├── ui/                   Wordmark, Button, ArrowCircle, SectionHeading, WordReveal, FigCaption
 │   │   └── icons/            InstagramIcon, WhatsAppIcon
 │   ├── seo/                  Seo.astro (<head>: meta, OG, canonical, JSON-LD)
 │   └── islands/
-│       ├── gallery/          DesignGallery, GalleryRow, GalleryCard, Lightbox, types, gallery.css
+│       ├── gallery/          DesignGallery, GalleryRow, GalleryCard, Lightbox, types, groups (solo servidor), gallery.css
 │       └── contact/          ContactForm, StepText, StepChoice, StepSummary, StepHeader, FormProgress, message, contact.css
 ├── data/                     site.ts, work.ts, services.ts, seo.ts, contactForm.ts, wordmark.ts
 ├── layouts/Layout.astro      <head>, slot "fixed", wrapper de ScrollSmoother
 ├── pages/                    index, 404, robots.txt, sitemap.xml, llms.txt
 ├── scripts/
 │   ├── menu.ts, ticker.ts
-│   ├── motion/               gsap, smooth, reveal, hero, hoverPreview, pointerDepth, footer
+│   ├── motion/               gsap, smooth, reveal, hero, pointerDepth, footer
 │   └── webgl/                priceFlyer, pushPin, flyerTexture, shaders/*.glsl
 └── styles/global.css         tokens, reset, utilidades, estados iniciales de animación
 ```
@@ -44,4 +44,4 @@ src/
 - **Scripts**: el componente hace `import { initX } from '../../scripts/...'` y llama `initX(elemento)`.
 - **React** solo para estado real. Algo con `position: fixed` dentro de una isla va con portal a `body`, porque ScrollSmoother transforma el contenido.
 - **Imágenes** siempre desde `src/assets/`: `<Image>` con `widths` y `sizes`, o `getImage()` para pasarlas a una isla o a OG.
-- **Datos**: las piezas se referencian por id con `byId('novia-salon')`.
+- **Datos**: las fotos se referencian por id con `byId('novia-salon')`; la galería lee `pieces` (una prenda con varias fotos). Ver `docs/content/portfolio.md`.

@@ -21,6 +21,7 @@ export const site = {
 export const nav = [
   { n: '01', label: 'Nuestra esencia', href: '#esencia', preview: 'novia-salon' },
   { n: '02', label: 'Diseños', href: '#disenos', preview: 'noche-negro' },
-  { n: '03', label: 'Servicios', href: '#servicios', preview: 'taller-terracota' },
-  { n: '04', label: 'Agenda tu cita', href: '#cita', preview: 'noche-azul' },
+  { n: '03', label: 'Piezas disponibles', href: '#disponibles', preview: 'disponible-verde-frente' },
+  { n: '04', label: 'Servicios', href: '#servicios', preview: 'taller-terracota' },
+  { n: '05', label: 'Agenda tu cita', href: '#cita', preview: 'noche-azul' },
 ];

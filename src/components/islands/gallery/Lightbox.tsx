@@ -3,22 +3,23 @@ import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { lockScroll } from '../../../scripts/motion/smooth';
-import type { GalleryItem } from './types';
+import type { GallerySlide } from './types';
 
 interface Props {
-  items: GalleryItem[];
-  activeId: string;
+  slides: GallerySlide[];
+  index: number;
   onClose: () => void;
-  onNavigate: (id: string) => void;
+  onNavigate: (index: number) => void;
 }
 
-export default function Lightbox({ items, activeId, onClose, onNavigate }: Props) {
+// Recorre foto por foto: primero todas las de una pieza y luego la siguiente pieza.
+export default function Lightbox({ slides, index, onClose, onNavigate }: Props) {
   const root = useRef<HTMLDivElement>(null);
   const closeBtn = useRef<HTMLButtonElement>(null);
 
-  const index = items.findIndex((item) => item.id === activeId);
-  const item = items[index];
-  const go = (step: number) => onNavigate(items[(index + step + items.length) % items.length].id);
+  const slide = slides[index];
+  const totalItems = slides[slides.length - 1].itemIndex + 1;
+  const go = (step: number) => onNavigate((index + step + slides.length) % slides.length);
 
   // Al abrir: foco en "Cerrar" y bloqueo de scroll. Al cerrar: devuelve el foco.
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Lightbox({ items, activeId, onClose, onNavigate }: Props
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [activeId]);
+  }, [index]);
 
   useGSAP(
     () => {
@@ -49,10 +50,11 @@ export default function Lightbox({ items, activeId, onClose, onNavigate }: Props
         gsap.fromTo('.lightbox__figure', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
       });
     },
-    { scope: root, dependencies: [activeId] },
+    { scope: root, dependencies: [index] },
   );
 
-  if (!item) return null;
+  if (!slide) return null;
+  const { item, photo, itemIndex, photoIndex } = slide;
 
   // Portal a <body>: el contenido con ScrollSmoother está transformado y rompería position: fixed.
   return createPortal(
@@ -69,12 +71,17 @@ export default function Lightbox({ items, activeId, onClose, onNavigate }: Props
       </button>
 
       <figure className="lightbox__figure">
-        <img src={item.full} alt={item.alt} width={item.width} height={item.height} />
+        <img src={photo.full} alt={photo.alt} width={photo.width} height={photo.height} />
         <figcaption>
           <span className="gallery__index">
-            {String(index + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+            {String(itemIndex + 1).padStart(2, '0')} / {String(totalItems).padStart(2, '0')}
           </span>
           <span className="lightbox__title display">{item.title}</span>
+          {item.photos.length > 1 && (
+            <span className="gallery__category">
+              Foto {photoIndex + 1} de {item.photos.length}
+            </span>
+          )}
           <span className="gallery__category">{item.categoryLabel}</span>
         </figcaption>
       </figure>

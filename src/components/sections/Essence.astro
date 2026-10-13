@@ -13,9 +13,9 @@ const manifesto =
 
 // Collage: cada foto con su pie de foto editorial ("Fig. n · título").
 const figures = [
-  { piece: byId('novia-salon'), variant: 'portrait', parallax: '-0.06', widths: [500, 800, 1100], sizes: '(max-width: 860px) 60vw, 24vw' },
-  { piece: byId('novia-detalle'), variant: 'detail', parallax: '-0.22', widths: [300, 600], sizes: '(max-width: 860px) 34vw, 12vw' },
-  { piece: byId('novia-espejo'), variant: 'mirror', parallax: '-0.14', widths: [300, 600], sizes: '(max-width: 860px) 30vw, 11vw' },
+  { photo: byId('novia-salon'), variant: 'portrait', parallax: '-0.06', widths: [500, 800, 1100], sizes: '(max-width: 860px) 60vw, 24vw' },
+  { photo: byId('novia-detalle'), variant: 'detail', parallax: '-0.22', widths: [300, 600], sizes: '(max-width: 860px) 34vw, 12vw' },
+  { photo: byId('novia-espejo'), variant: 'mirror', parallax: '-0.14', widths: [300, 600], sizes: '(max-width: 860px) 30vw, 11vw' },
 ];
 ---
 
@@ -40,12 +40,12 @@ const figures = [
     </div>
 
     <div class="essence__collage">
-      {figures.map(({ piece, variant, parallax, widths, sizes }, i) => (
+      {figures.map(({ photo, variant, parallax, widths, sizes }, i) => (
         <div class:list={['essence__item', `essence__item--${variant}`]} data-parallax={parallax}>
           <figure class="essence__photo" data-clip>
-            <Image src={piece.image} alt={piece.alt} widths={widths} sizes={sizes} />
+            <Image src={photo.image} alt={photo.alt} widths={widths} sizes={sizes} />
           </figure>
-          <FigCaption n={i + 1} title={piece.title} vertical={variant === 'portrait'} />
+          <FigCaption n={i + 1} title={photo.caption} vertical={variant === 'portrait'} />
         </div>
       ))}
       <p class="essence__vertical display" aria-hidden="true" data-reveal>Monterrey, N.L.</p>

@@ -1,7 +1,7 @@
 ---
-// Tarjeta "Confección y ajustes": réplica del flyer de precios.
+// Hoja de precios: réplica del flyer de la clienta (título en services.ts).
 import Wordmark from '../ui/Wordmark.astro';
-import { expressSurcharge, priceList, priceNote } from '../../data/services';
+import { expressSurcharge, priceList, priceListTitle, priceNote } from '../../data/services';
 
 const mxn = (value: number) => `$${value.toLocaleString('es-MX')}`;
 ---
@@ -9,7 +9,7 @@ const mxn = (value: number) => `$${value.toLocaleString('es-MX')}`;
 <aside class="prices" aria-labelledby="prices-title" data-reveal>
   <span class="prices__pin" aria-hidden="true"></span>
   <p class="prices__brand"><span class="sr-only">Anter</span><Wordmark /></p>
-  <h3 id="prices-title" class="prices__title eyebrow">Confección y ajustes</h3>
+  <h3 id="prices-title" class="prices__title eyebrow">{priceListTitle}</h3>
 
   {priceList.map((group) => (
     <div class="prices__group">

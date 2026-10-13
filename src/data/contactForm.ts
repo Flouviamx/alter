@@ -28,7 +28,7 @@ export interface ChoiceStep extends BaseStep {
 
 export type Step = TextStep | ChoiceStep;
 
-const ALTERATIONS = 'Confección y ajustes';
+const ALTERATIONS = 'Ajustes';
 
 export const contactSteps: Step[] = [
   {
@@ -44,7 +44,7 @@ export const contactSteps: Step[] = [
     kind: 'choice',
     question: 'Mucho gusto, {name}. ¿Qué te gustaría hacer?',
     label: 'Busco',
-    options: ['Vestido de novia', 'Vestido de noche o evento', ALTERATIONS, 'Otra cosa'],
+    options: ['Vestido de novia', 'Vestido de cocktail o fiesta', ALTERATIONS, 'Otra cosa'],
   },
   {
     id: 'timing',

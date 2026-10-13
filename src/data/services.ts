@@ -1,27 +1,26 @@
 // Servicios y lista de precios. Precios: flyer "Confección y ajustes" (docs/brand/refs/flyer-confeccion-ajustes.jpg).
-// Precios en MXN. Actualizar aquí; la UI lee de este archivo.
-// `preview` = id de la pieza (src/data/work.ts) que aparece al pasar el cursor por la fila.
+// Textos de servicios: los dictó la clienta (2026-10-12). Precios en MXN. Actualizar aquí; la UI lee de este archivo.
 
 export const services = [
   {
     n: '01',
     title: 'Vestidos a la medida',
-    preview: 'noche-coral',
-    body: 'Piezas de noche y de evento diseñadas desde cero: tela, silueta y detalles pensados para ti.',
+    body: 'Cocktail y fiesta.',
   },
   {
     n: '02',
     title: 'Novias',
-    preview: 'novia-alcatraces',
-    body: 'Vestidos de novia y de civil, con pruebas en el taller hasta que el ajuste sea exacto.',
+    body: 'Novias, mamás y hermanas de los novios, despedidas y civiles.',
   },
   {
     n: '03',
-    title: 'Confección y ajustes',
-    preview: 'taller-champagne',
-    body: 'Bastillas, ajustes de talle y cambios de cierre para que lo que ya tienes te quede como nuevo.',
+    title: 'Ajustes',
+    body: 'Bastillas, ajustes de talle, cambio de cierres y enmiendas.',
   },
 ];
+
+/** Título de la hoja de precios (lista HTML y textura WebGL). */
+export const priceListTitle = 'Servicios';
 
 export const priceList = [
   {

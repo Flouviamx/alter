@@ -17,7 +17,7 @@ No es una barra típica. Son tres piezas fijas, en `slot="fixed"` del Layout:
 
 ## Ticker de sección (`layout/SectionTicker.astro` + `scripts/ticker.ts`)
 
-- Esquina inferior izquierda: `02 / 04 — Diseños` y una barra de progreso de lectura.
+- Esquina inferior izquierda: `02 / 05 — Diseños` y una barra de progreso de lectura.
 - Lee `data-section` y `data-section-label` de cada sección y anima el cambio de texto.
 - Aparece al salir del hero y se oculta al llegar al footer.
 - En móvil (≤ 640 px) se centra abajo, dentro de una píldora translúcida, para leerse sobre cualquier contenido.

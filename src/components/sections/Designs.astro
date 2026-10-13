@@ -1,39 +1,12 @@
 ---
 // 02 — Diseños. Piezas agrupadas por categoría (Novias, Fiesta), cada grupo en una tira horizontal.
+// Cada pieza es un vestido; si tiene varias fotos, se hojean en la misma tarjeta.
 // Las imágenes se optimizan en el servidor y se pasan a la isla React (lightbox incluido).
-import { getImage } from 'astro:assets';
 import SectionHeading from '../ui/SectionHeading.astro';
 import DesignGallery from '../islands/gallery/DesignGallery';
-import type { GalleryGroup, GalleryItem } from '../islands/gallery/types';
-import { categories, work, type WorkItem } from '../../data/work';
+import { galleryGroups } from '../islands/gallery/groups';
 
-const toItem = async (piece: WorkItem, categoryLabel: string): Promise<GalleryItem> => {
-  const thumb = await getImage({ src: piece.image, widths: [400, 700], format: 'webp' });
-  const full = await getImage({ src: piece.image, width: 1600, format: 'webp' });
-  return {
-    id: piece.id,
-    title: piece.title,
-    category: piece.category,
-    categoryLabel,
-    alt: piece.alt,
-    focus: piece.focus,
-    src: thumb.src,
-    srcSet: thumb.srcSet.attribute,
-    full: full.src,
-    width: piece.image.width,
-    height: piece.image.height,
-  };
-};
-
-const groups: GalleryGroup[] = await Promise.all(
-  categories.map(async (category) => ({
-    id: category.id,
-    label: category.label,
-    items: await Promise.all(
-      work.filter((piece) => piece.category === category.id).map((piece) => toItem(piece, category.label)),
-    ),
-  })),
-);
+const groups = await galleryGroups('disenos');
 ---
 
 <section class="designs" id="disenos" aria-labelledby="disenos-title" data-section="02" data-section-label="Diseños">
