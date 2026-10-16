@@ -1,0 +1,113 @@
+---
+// Proceso: los pasos del taller con fotos del photoshoot. Continúa a Nuestra esencia, por eso no lleva
+// número propio en el ticker. Columnas escalonadas (broken grid) e índices numerados con línea fina.
+// Datos en src/data/process.ts.
+import { Image } from 'astro:assets';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { processSteps } from '../../data/process';
+import { byId } from '../../data/work';
+
+const steps = processSteps.map((step) => ({ ...step, photo: byId(step.photo) }));
+---
+
+<section class="process" id="proceso" aria-labelledby="proceso-title">
+  <div class="wrap">
+    <SectionHeading label="Proceso" title="Así nace cada pieza." id="proceso-title" />
+
+    <ol class="process__steps">
+      {steps.map((step) => (
+        <li class="process__step">
+          <figure class="process__photo" data-clip>
+            <Image
+              src={step.photo.image}
+              alt={step.photo.alt}
+              widths={[360, 600, 900]}
+              sizes="(max-width: 860px) 44vw, 21vw"
+              style={step.photo.focus ? `object-position: ${step.photo.focus}` : undefined}
+            />
+          </figure>
+          <div class="process__text" data-reveal>
+            <span class="process__n">{step.n}</span>
+            <h3 class="process__title">{step.title}</h3>
+            <p class="process__body">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding-block: var(--section-y);
+  }
+
+  .process__steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2.4vw, 2.4rem);
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  /* Escalonado: los pasos pares bajan, como las fotos sueltas del hero */
+  .process__step:nth-child(even) {
+    margin-top: clamp(2.5rem, 7vw, 6rem);
+  }
+
+  .process__photo {
+    aspect-ratio: 3 / 4;
+    margin: 0;
+    overflow: hidden;
+    background: var(--salvia-soft);
+  }
+
+  .process__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .process__text {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.9rem;
+    row-gap: 0.4rem;
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .process__n {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--terracota);
+  }
+
+  .process__title {
+    font-size: 0.86rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .process__body {
+    grid-column: 2;
+    font-size: 0.88rem;
+    color: var(--tinta-soft);
+  }
+
+  @media (max-width: 860px) {
+    .process__steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 2.5rem;
+    }
+
+    .process__text {
+      grid-template-columns: 1fr;
+    }
+
+    .process__body {
+      grid-column: 1;
+    }
+  }
+</style>

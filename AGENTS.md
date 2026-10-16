@@ -93,6 +93,7 @@ Las imágenes de referencia de la clienta (logo, flyer, moodboard, boceto) está
 | Wordmark ANTER (trazos del logo original) | `src/data/wordmark.ts` → `ui/Wordmark.astro` |
 | Contacto y navegación | `src/data/site.ts` |
 | Fotos, piezas (vestidos) y categorías | `src/data/work.ts` |
+| Pasos de la sección Proceso | `src/data/process.ts` |
 | Servicios y precios | `src/data/services.ts` |
 | Preguntas del formulario de contacto | `src/data/contactForm.ts` |
 | Title, description y JSON-LD | `src/data/seo.ts` |

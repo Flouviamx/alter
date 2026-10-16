@@ -35,8 +35,17 @@ import blusaCafe from '../assets/work/disponible-blusa-cafe.jpg';
 import blusaLila from '../assets/work/disponible-blusa-lila.jpg';
 import procesoManos from '../assets/work/proceso-manos.jpg';
 import procesoMaquina from '../assets/work/proceso-maquina.jpg';
-import procesoAlfileres from '../assets/work/proceso-alfileres.jpg';
 import procesoMesa from '../assets/work/proceso-mesa.jpg';
+import procesoRetrato from '../assets/work/proceso-retrato.jpg';
+import procesoCorte from '../assets/work/proceso-corte.jpg';
+import procesoPruebaTela from '../assets/work/proceso-prueba-tela.jpg';
+import procesoBoceto from '../assets/work/proceso-boceto.jpg';
+import procesoPatron from '../assets/work/proceso-patron.jpg';
+import procesoPrueba from '../assets/work/proceso-prueba.jpg';
+import procesoCostura from '../assets/work/proceso-costura.jpg';
+import negroTaller from '../assets/work/noche-negro-taller.jpg';
+import negroTallerBn from '../assets/work/noche-negro-taller-bn.jpg';
+import atelierBocetoBn from '../assets/work/atelier-boceto-bn.jpg';
 
 // Grupos de la galería, en el orden en que se muestran. `section` dice en qué sección van:
 // Diseños (boceto de la clienta: Novias, Fiesta) o Piezas disponibles (prendas a la venta).
@@ -273,17 +282,74 @@ export const photos: Photo[] = [
     alt: 'Aguja de una máquina de coser sobre tela rosa, con un carrete de hilo del mismo tono',
   },
   {
-    id: 'proceso-alfileres',
-    image: procesoAlfileres,
-    caption: 'Prueba en maniquí',
-    alt: 'La diseñadora de Anter House prende con alfileres una tela fucsia sobre un maniquí',
-    focus: '75% 50%',
-  },
-  {
     id: 'proceso-mesa',
     image: procesoMesa,
     caption: 'Mesa de costura',
     alt: 'Máquina de coser industrial con tela rosa sobre la mesa del taller',
+  },
+  // Photoshoot profesional del taller (Pixieset). Sin tomas donde se lea el letrero de la pared.
+  {
+    id: 'proceso-retrato',
+    image: procesoRetrato,
+    caption: 'En el taller',
+    alt: 'La diseñadora de Anter House, con cinta métrica al cuello, trabaja en la mesa del taller',
+  },
+  {
+    id: 'proceso-corte',
+    image: procesoCorte,
+    caption: 'Corte a mano',
+    alt: 'Manos marcando una tela fucsia junto a unas tijeras sobre la mesa de corte',
+    focus: '58% 50%',
+  },
+  {
+    id: 'proceso-prueba-tela',
+    image: procesoPruebaTela,
+    caption: 'Prueba de tela',
+    alt: 'La diseñadora sonríe mientras prueba una tela fucsia sobre un maniquí',
+  },
+  {
+    id: 'proceso-boceto',
+    image: procesoBoceto,
+    caption: 'Boceto',
+    alt: 'Mano dibujando el boceto de un vestido en un cuaderno',
+    focus: '40% 50%',
+  },
+  {
+    id: 'proceso-patron',
+    image: procesoPatron,
+    caption: 'Patrón',
+    alt: 'Patrón de papel con anotaciones, cinta métrica y lápiz',
+  },
+  {
+    id: 'proceso-prueba',
+    image: procesoPrueba,
+    caption: 'Prueba en maniquí',
+    alt: 'La diseñadora ajusta un vestido negro strapless con una rosa de satín sobre un maniquí',
+  },
+  {
+    id: 'proceso-costura',
+    image: procesoCostura,
+    caption: 'Costura',
+    alt: 'Máquina de coser industrial con hilo rosa y unas tijeras sobre la mesa',
+  },
+  {
+    id: 'noche-negro-taller',
+    image: negroTaller,
+    caption: 'En el taller',
+    alt: 'La diseñadora sonríe mientras ajusta el vestido negro strapless con rosa de satín sobre un maniquí',
+  },
+  {
+    id: 'noche-negro-taller-bn',
+    image: negroTallerBn,
+    caption: 'Junto a su diseñadora',
+    alt: 'Foto en blanco y negro de la diseñadora junto al vestido negro strapless con rosa, en el maniquí',
+  },
+  // Foto en blanco y negro del hero (photoshoot del taller).
+  {
+    id: 'atelier-boceto-bn',
+    image: atelierBocetoBn,
+    caption: 'Boceto',
+    alt: 'Foto en blanco y negro de la diseñadora inclinada sobre la mesa, dibujando un boceto',
   },
 ];
 
@@ -294,7 +360,12 @@ export const pieces: Piece[] = [
   { id: 'despedida', title: 'Despedida', category: 'novias', photos: ['novia-terraza', 'novia-espejo', 'novia-detalle'] },
   { id: 'lila', title: 'Lila con capa', category: 'fiesta', photos: ['fiesta-lila-frente', 'fiesta-lila-capa', 'fiesta-lila-vuelo'] },
   { id: 'fucsia-olan', title: 'Fucsia strapless con olán', category: 'fiesta', photos: ['fiesta-fucsia-olan', 'fiesta-fucsia-olan-pose', 'fiesta-fucsia-olan-entrada'] },
-  { id: 'negro', title: 'Strapless negro con rosa', category: 'fiesta', photos: ['noche-negro'] },
+  {
+    id: 'negro',
+    title: 'Strapless negro con rosa',
+    category: 'fiesta',
+    photos: ['noche-negro-taller', 'noche-negro', 'noche-negro-taller-bn'],
+  },
   { id: 'terracota', title: 'Satín terracota, un hombro', category: 'fiesta', photos: ['taller-terracota'] },
   { id: 'azul', title: 'Azul rey, hombros caídos', category: 'fiesta', photos: ['noche-azul'] },
   { id: 'champagne', title: 'Champagne drapeado', category: 'fiesta', photos: ['taller-champagne'] },

@@ -11,11 +11,11 @@ import { byId } from '../../data/work';
 const manifesto =
   'Cada pieza empieza con una conversación. Escuchamos qué quieres sentir el día que la uses y lo traducimos en tela, corte y detalle, construido alrededor de ti.';
 
-// Collage: cada foto con su pie de foto editorial ("Fig. n · título").
+// Collage: la diseñadora en su taller (photoshoot), cada foto con su pie editorial ("Fig. n · título").
 const figures = [
-  { photo: byId('novia-salon'), variant: 'portrait', parallax: '-0.06', widths: [500, 800, 1100], sizes: '(max-width: 860px) 60vw, 24vw' },
-  { photo: byId('novia-detalle'), variant: 'detail', parallax: '-0.22', widths: [300, 600], sizes: '(max-width: 860px) 34vw, 12vw' },
-  { photo: byId('novia-espejo'), variant: 'mirror', parallax: '-0.14', widths: [300, 600], sizes: '(max-width: 860px) 30vw, 11vw' },
+  { photo: byId('proceso-retrato'), variant: 'portrait', parallax: '-0.06', widths: [500, 800, 1100], sizes: '(max-width: 860px) 60vw, 24vw' },
+  { photo: byId('proceso-corte'), variant: 'detail', parallax: '-0.22', widths: [300, 600], sizes: '(max-width: 860px) 34vw, 12vw' },
+  { photo: byId('proceso-prueba-tela'), variant: 'mirror', parallax: '-0.14', widths: [300, 600], sizes: '(max-width: 860px) 30vw, 11vw' },
 ];
 ---
 
@@ -43,7 +43,13 @@ const figures = [
       {figures.map(({ photo, variant, parallax, widths, sizes }, i) => (
         <div class:list={['essence__item', `essence__item--${variant}`]} data-parallax={parallax}>
           <figure class="essence__photo" data-clip>
-            <Image src={photo.image} alt={photo.alt} widths={widths} sizes={sizes} />
+            <Image
+              src={photo.image}
+              alt={photo.alt}
+              widths={widths}
+              sizes={sizes}
+              style={photo.focus ? `object-position: ${photo.focus}` : undefined}
+            />
           </figure>
           <FigCaption n={i + 1} title={photo.caption} vertical={variant === 'portrait'} />
         </div>

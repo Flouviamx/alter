@@ -18,7 +18,7 @@ src/
 ├── assets/work/              fotos del portafolio (procesadas por astro:assets)
 ├── components/
 │   ├── layout/               Header, Menu, SectionTicker, Footer
-│   ├── sections/             Hero, Essence, Designs, Available, Services, Appointment, NotFound
+│   ├── sections/             Hero, Essence, Process, Designs, Available, Services, Appointment, NotFound
 │   ├── blocks/               PriceFlyer (WebGL + respaldo), PriceList (HTML)
 │   ├── ui/                   Wordmark, Button, ArrowCircle, SectionHeading, WordReveal, FigCaption
 │   │   └── icons/            InstagramIcon, WhatsAppIcon
@@ -26,7 +26,7 @@ src/
 │   └── islands/
 │       ├── gallery/          DesignGallery, GalleryRow, GalleryCard, Lightbox, transitions (Flip), types, groups (solo servidor), gallery.css
 │       └── contact/          ContactForm, StepText, StepChoice, StepSummary, StepHeader, FormProgress, message, contact.css
-├── data/                     site.ts, work.ts, services.ts, seo.ts, contactForm.ts, wordmark.ts
+├── data/                     site.ts, work.ts, process.ts, services.ts, seo.ts, contactForm.ts, wordmark.ts
 ├── layouts/Layout.astro      <head>, slot "fixed", wrapper de ScrollSmoother
 ├── pages/                    index, 404, robots.txt, sitemap.xml, llms.txt
 ├── scripts/

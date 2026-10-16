@@ -20,7 +20,7 @@
 
   /* Escala */
   --gutter: clamp(1rem, 4vw, 3.5rem);
-  --section-y: clamp(4.5rem, 9vw, 8rem);
+  --section-y: clamp(3rem, 6vw, 5.25rem);
 
   /* Escala tipográfica contenida: el único texto gigante es el wordmark */
   --text-title: clamp(1.9rem, 3.2vw, 3rem);

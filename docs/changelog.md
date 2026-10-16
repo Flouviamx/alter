@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-16: v0.8 (photoshoot profesional)
+
+- Llegó el photoshoot profesional del taller desde Pixieset: 85 fotos de la fotógrafa (camilatorrez.pixieset.com). En total se usan 10 nuevas, procesadas como siempre (enderezadas, 2400 px, sin metadatos).
+- **Nuestra esencia:** el collage pasa de 3 fotos de novia, que ya estaban en la galería, a la diseñadora en su taller: retrato, corte a mano y prueba de tela. Esencia ahora respeta `focus`.
+- **Sección nueva Proceso** (`sections/Process.astro`, `data/process.ts`):
+  - Boceto, Patrón, Prueba y Costura, cada paso con su foto;
+  - columnas escalonadas con índice numerado y línea fina;
+  - va entre Esencia y Diseños, sin número en el ticker ni entrada en el menú.
+- **Galería:** el "Strapless negro con rosa" suma 2 fotos del taller y abre con la profesional.
+- **Hero:** la foto de la diseñadora con alfileres se cambia por una de ella bocetando en blanco y negro (`atelier-boceto-bn`), la única en blanco y negro del collage. También se ve en móvil. Se probó un retrato en blanco y negro que no gustó. Se eliminaron `proceso-alfileres` y ese retrato.
+- Se probó una sección "El taller" con 14 fotos maquetadas como revista y se descartó por decisión del equipo.
+- **Espacio entre secciones más corto:** `--section-y` pasa de `clamp(4.5rem, 9vw, 8rem)` a `clamp(3rem, 6vw, 5.25rem)`, unos 35 % menos.
+- Regla nueva: no se usan tomas donde se lea el letrero "ANA GARCIA ATELIER" (la marca es Anter House).
+
 ## 2026-10-12: v0.7 (galería: Flip y satín)
 
 - **Lightbox con GSAP Flip:**

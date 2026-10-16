@@ -22,7 +22,7 @@ Fotos en `src/assets/work/`. Las nuevas se procesan con sharp: se enderezan seg�
 | `despedida` | Despedida | novias | `novia-terraza`, `novia-espejo`, `novia-detalle` |
 | `lila` | Lila con capa | fiesta | `fiesta-lila-frente`, `fiesta-lila-capa`, `fiesta-lila-vuelo` |
 | `fucsia-olan` | Fucsia strapless con olán | fiesta | `fiesta-fucsia-olan`, `-pose`, `-entrada` |
-| `negro` | Strapless negro con rosa | fiesta | `noche-negro` |
+| `negro` | Strapless negro con rosa | fiesta | `noche-negro-taller`, `noche-negro`, `noche-negro-taller-bn` |
 | `terracota` | Satín terracota, un hombro | fiesta | `taller-terracota` |
 | `azul` | Azul rey, hombros caídos | fiesta | `noche-azul` |
 | `champagne` | Champagne drapeado | fiesta | `taller-champagne` |
@@ -36,14 +36,21 @@ Fotos en `src/assets/work/`. Las nuevas se procesan con sharp: se enderezan seg�
 
 Títulos: Novias y Disponibles los dio la clienta (2026-10-12); los de Fiesta son provisionales.
 
-Las fotos `proceso-*` (sesión del taller) están en `photos` pero no en `pieces`: solo las usa el hero. Si una foto necesita encuadre, `focus` también se aplica en el hero.
+Las fotos `proceso-*` (sesión del taller) están en `photos` pero no en `pieces`: las usan el hero, Esencia y Proceso.
+
+### Photoshoot profesional del taller
+
+- La fotógrafa entregó 85 fotos en Pixieset (`anaTereAtelier-N.jpg`, 7008×4672). En el sitio hay 14; el zip original queda con la clienta. Muchas de las restantes son casi iguales o versiones en blanco y negro.
+- **Regla:** no se usan tomas donde se lea el letrero "ANA GARCIA ATELIER" de la pared, porque la marca del sitio es Anter House.
+- De la sesión salen las fotos del hero, de Esencia y de Proceso, y dos más del vestido negro con rosa (`noche-negro-taller*`), que es el mismo de la foto del evento. Si una foto necesita encuadre, `focus` también se aplica en el hero.
 
 ### Uso fuera de la galería (sin repetir)
 
 | Sección | Fotos |
 |---|---|
-| Hero | proceso-manos, proceso-maquina, proceso-alfileres, proceso-mesa (sesión del taller, no son piezas) |
-| Esencia | novia-salon, novia-detalle, novia-espejo |
+| Hero | proceso-manos, proceso-maquina, atelier-boceto-bn (la única en blanco y negro), proceso-mesa (sesión del taller, no son piezas) |
+| Esencia | proceso-retrato, proceso-corte, proceso-prueba-tela (photoshoot del taller) |
+| Proceso | proceso-boceto, proceso-patron, proceso-prueba, proceso-costura (`data/process.ts`) |
 | Galería | todas |
 
 El preview del menú es efímero y puede repetir (Piezas disponibles usa `disponible-verde-frente`). Servicios, Cita y footer no llevan fotos.
